@@ -1,9 +1,13 @@
 # RetiDiCalcolatori
 Progetto di reti di calcolatori.
 
-Scritto da:
+##### TODO
+1. [] Definire struttura database e insieme dei dati di interesse
+2. [] Documentazione API REST usate
 
-Silvio Dei Giudici
-Nunziato Crisafulli
-Marco Morella
-Mattia Nicolella
+
+###### Scritto da:
+* Silvio Dei Giudici
+* Nunziato Crisafulli
+* Marco Morella
+* Mattia Nicolella
