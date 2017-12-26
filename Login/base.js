@@ -22,3 +22,5 @@ console.log('up on port:' + port);
 
 //linking node modules
 require('./routes.js')(app,passport); //routes for the application
+require('./password.js')();//password handling
+require('./passport.js')(passport); // passport configuration for local authetication
