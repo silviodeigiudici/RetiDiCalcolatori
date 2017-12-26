@@ -1,0 +1,11 @@
+{
+  name:"eventuale nome dell'edificio",
+  addresses: [ { address:"indirizzo",number:"numero_civico"} ],
+ rooms:"numero_aule",
+ shops: [ {shop:"locazione spaccio"}],
+ vending_machines: [{machine:"locazione macchinetta"} ],
+ drinking_fountains: [{fountin:"locazione fontanella"}],
+ study_rooms: [{room:"locazione aula studio"}],
+ libraries: [library:"locazione biblioteca"],
+ wifi: "presenza wifi"
+}

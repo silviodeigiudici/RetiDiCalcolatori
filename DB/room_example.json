@@ -1,0 +1,16 @@
+{
+  name:"eventuale nome dell' aula",
+  number: "eventuale numero dell'aula",
+  floor: "piano in cui si trova l'aula",
+  type:"tipo aula",
+  seats:"numero posti",
+  desk_type:"tipo banco",
+  board_type:"tipo lavagna",
+  projector: "informazioni sul proiettore",
+  mic:"informazioni sul microfono",
+  coat_hangers:"posti sull'attaccapanni",
+  sockets:"numero prese",
+  wifi:"ricezione wifi",
+  exits:"numero uscite",
+  back_entrance:"presenza di un entrata sul retro"
+}
