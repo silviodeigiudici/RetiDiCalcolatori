@@ -5,6 +5,9 @@
   </head>
   <body>
     <h3>Registrati</h3>
+    <% if (message.length > 0) { %>
+    <p><%= message %><p>
+       <% } %>
     <form action='/signup' method='post'>
       <label>Username:</label>
       <input type='text' name='username'>

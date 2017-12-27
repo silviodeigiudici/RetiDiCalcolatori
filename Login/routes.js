@@ -1,16 +1,22 @@
 module.exports= function(app,passport) {
 
   app.get('/', function (req,res){
-    res.sendfile(__dirname+'/views/home.html');
+    res.render('home.ejs');
   });
 
   app.get('/login', function (req,res){
-    res.sendfile(__dirname+'/views/login.html');
+    res.render('login.ejs', { message: req.flash('loginMessage') });
   });
 
   app.get('/signup', function (req,res){
-    res.sendfile(__dirname+'/views/signup.html');
+    res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
+
+  app.post('/signup',passport.authenticate('signup',{
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    failureFlash:true
+  }));
 
   app.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile.ejs', {
