@@ -1,0 +1,11 @@
+div#log{
+    width: 800px;
+    height: 300px;
+    margin: 0px auto;
+    border: 5px solid black;
+    border-radius: 7px;
+    }
+div#sending{
+    width: 235px;
+    margin: 30px auto;
+    }

@@ -6,7 +6,7 @@ Progetto di Reti di Calcolatori, è un applicazione web che fornisce informazion
 2. [ ] Login usando Google SignIn e in locale
 3. [ ] Informazioni sull' edificio, luoghi nei dintorni e meteo
 4. [ ] Indicazioni per come raggiungere l'edificio
-5. [ ] Chat globale
+5. [x] Chat globale
 6. [ ] Informazioni sull' aula, galleria fotografica e avvisi sulla stessa
 7. [ ] Documentazione API REST usate
 
