@@ -1,13 +1,20 @@
-var Local_Strategy =require('passport-local').Strategy;
-var request=require('request');
-var bcrypt=require("bcrypt-nodejs");
-
-var db='http://127.0.0.1:5984/users';
+const Local_Strategy =require('passport-local').Strategy;
+//google oauth strategy
+const Google_Strategy = require('passport-google-oauth20').Strategy;
+const request=require('request');
+const bcrypt=require("bcrypt-nodejs");
+//data needed to call google api
+const OAuth_data=require('./OAuth');
+const db='http://127.0.0.1:5984/users';
 
 module.exports = function(passport){
 //serialize an user to authenticate its sessions
   passport.serializeUser(function(user,done){
+    if(user.local){
         done(null,user.local.username);
+      } else {
+        done(null,user.google.username);
+      }
   });
 
 //from the username get all the user info
@@ -56,7 +63,7 @@ module.exports = function(passport){
       }
     });
   }));
-  
+
   //passport Strategy to log in a user
   passport.use("login", new Local_Strategy( {passReqToCallback : true},function(req, username, password, done){
       //ensure there are only valid values
@@ -79,7 +86,7 @@ module.exports = function(passport){
                 console.log("wrong password");
                 return done(null,false,req.flash('loginMessage','wrong password!'));
             }
-              
+
           } else{
               if(!error&& response.statusCode==404){
                   console.log("user does not exist");
@@ -90,7 +97,35 @@ module.exports = function(passport){
           }
       });
   }));
-  
+
+  passport.use("google",new Google_Strategy({
+
+        clientID        : OAuth_data.google.clientID,
+        clientSecret    : OAuth_data.google.clientSecret,
+        callbackURL     : OAuth_data.google.callbackURL,
+
+  },function(token,refresh,profile,done){
+    //get the user from google to the database
+    var usr={ google:{ "username":profile.displayName,"token":token}}
+    //search for the user in the database
+    request({
+      url: db+'/'+profile.displayName,
+      method:'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usr)
+      //callback to save the user if it doesn't exists or to log him in
+    },function (error,response,body){
+        if(!error && response.statusCode==202 || response.statusCode==409){
+          console.log("created/logged the user");
+          return done(null,usr);
+        } else {
+          return done(error);
+        }
+      });
+  }));
+
 };
 
 function createhash(password){

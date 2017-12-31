@@ -13,7 +13,7 @@ module.exports= function(app,passport) {
       failureRedirect: '/login',
       failureFlash:true
   }));
-  
+
   app.get('/signup', function (req,res){
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
@@ -34,6 +34,16 @@ module.exports= function(app,passport) {
    req.logout();
    res.redirect('/');
   });
+
+  //login con google!
+  app.get('/google', passport.authenticate('google', { scope : ['profile'] }));
+
+  //callback dopo che l'utente si è autenticato su Google
+  app.get('/auth',
+            passport.authenticate('google', {
+                    successRedirect : '/profile',
+                    failureRedirect : '/'
+            }));
 }
 
 function isLoggedIn(req,res,next){

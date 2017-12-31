@@ -1,6 +1,10 @@
 {
   local: {
-  username:"Nick"
+  username:"Nick",
   password:"password"
+  }
+  google:{
+    name:"Nick",
+    token:"token"
   }
 }
