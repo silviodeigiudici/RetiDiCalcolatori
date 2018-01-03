@@ -76,6 +76,7 @@ app.get("/classroom"+numero+"/photo", function(req,res) {
     });
 });
 
+
 /*
 app.get("/classroom"+numero+"/comments", function(req,res) {
     amqp.connect('amqp://localhost', function(err, conn) {
