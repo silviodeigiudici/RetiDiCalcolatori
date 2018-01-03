@@ -18,6 +18,20 @@
       }
     </style>
     <script>
+    //first try for the classroom selection
+    function populateSelectBox()	{ //this function populate the selectbox on load
+    var select = document.getElementById('CR');
+
+    while ( select.childNodes.length >= 1 )
+        {select.removeChild(select.firstChild); }
+
+    for(var i=1;i<=30;i++){
+        newOption = document.createElement('option');
+        newOption.value='Aula'+i;
+        newOption.text='Aula'+i;
+        select.appendChild(newOption);}
+    }
+
       var flag = true; //this flag is needed for the Routing
       var map;
       var infowindow;
@@ -231,7 +245,7 @@
           }
         }
       }
-    function callbackB(results, status) {
+      function callbackB(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             createMarkerBars(results[i]);
@@ -256,7 +270,7 @@
           infowindow.setContent(place.name);
           infowindow.open(map, this);
         });
-    }
+      }
 
 
        //Create markers for all findings for for Bars
@@ -306,7 +320,14 @@
       }
     </script>
   </head>
-  <body>
+  <body Onload = "populateSelectBox()">
+
+    </select>
+    <b>Choose a ClassRoom: </b>
+    <select id="CR">
+      <option value="Aula 0">Aula 0</option>
+      <option value="Aula 1">Aula 1</option>
+    </select>
 
 
     <div id="map"></div>
