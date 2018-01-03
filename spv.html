@@ -58,7 +58,7 @@
         service.nearbySearch({
           location: spv,
           radius: 480,
-          type: ['restaurant']    //Searching
+          type: ['restaurant']    //Type of Search
         }, callback);
 
         //using places to find all bars
@@ -66,7 +66,7 @@
         service.nearbySearch({
           location: spv,
           radius: 480,
-          type: ['bar']      //Searching
+          type: ['bar']
         }, callbackB);
 
 
@@ -75,14 +75,14 @@
         service.nearbySearch({
           location: spv,
           radius: 480,
-          type: ['library']  || ['art_gallery'] || ['museum'] || ['church']  //Searching
+          type: ['library']  || ['art_gallery'] || ['museum'] || ['church']  //Multi-Search
          }, callbackA);
 
       }
 
 
 
-
+    //Here() will locate the user and pin a marker on his current location
      function Here(){
          //let's locate the user
         if (navigator.geolocation) {
@@ -103,23 +103,22 @@
         });
 
 
-            //using reverse geocoding to get an address from latitude and longitude
-            var UserLoc = '';
-            var lat = parseFloat(position.coords.latitude);
-            var lng = parseFloat(position.coords.longitude);
-            var latlng = new google.maps.LatLng(lat, lng);
-            var geocoder = geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-                        UserLoc += results[0].address_components[1].long_name + ", " + results[0].address_components[0].long_name
-                        + ", "+   results[0].address_components[2].long_name;
-
-                    }
+        //using reverse geocoding to get an address from latitude and longitude
+        var UserLoc = '';
+        var lat = parseFloat(position.coords.latitude);
+        var lng = parseFloat(position.coords.longitude);
+        var latlng = new google.maps.LatLng(lat, lng);
+        var geocoder = geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    UserLoc += results[0].address_components[1].long_name + ", " + results[0].address_components[0].long_name
+                    + ", "+   results[0].address_components[2].long_name;}
                 }
             });
 
 
+        //placing an onClick window,to show the user's address on the marker we've placed
         infowindow = new google.maps.InfoWindow();
         google.maps.event.addListener(markerUserLocation, 'click', function() {
           infowindow.setContent('UserLocation : '+UserLoc);
@@ -136,7 +135,7 @@
 
 }
 
-
+        //MyWay() will create a route from the address given by the user,and our building.
         function MyWay(){
 
         //getting the output from the form and checking if we don't already have a route
@@ -170,15 +169,16 @@
         else{window.alert('Directions request failed,adding too many addresses,please reload the page ');}
       }
 
-
+//Next three functions are all used by MyWay()
+//calculateAndDisplayRoute calls both showSteps and attachInstructionText,to create the route and placing instructions markers on it.
       function calculateAndDisplayRoute(directionsDisplay, directionsService,
           markerArray, stepDisplay, map,address) {
         // Retrieve the start and end locations and create a DirectionsRequest using
         // WALKING directions.
         directionsService.route({
           origin : address,
-          destination: 'Via Eudossiana, 18, 00184 Roma RM',
-          travelMode: 'WALKING'
+          destination: 'Via Eudossiana, 18, 00184 Roma RM',  //The destination is hardcoded,since we want to direct the user to the building
+          travelMode: 'WALKING'                              //since the app is made for students,WALKING is the most fitting mode.
         }, function(response, status) {
           // Route the directions and pass the response to a function to create
           // markers for each step.
