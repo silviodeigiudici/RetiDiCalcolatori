@@ -2,7 +2,7 @@
     DB stucture:
         - a database for all buildings
         - a database for each building with classrooms
-          in each classroom we have information and comments
+          in each classroom we have informations and comments
 
 2) run nodejs:
     $ node classroom.js X N  {X = building name; N = number of the classroom we want access to}

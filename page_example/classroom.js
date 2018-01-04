@@ -21,9 +21,9 @@ var amqp = require('amqplib/callback_api');
 var args = process.argv.slice(2);
 var edificio=args[0];
 var numero=args[1];
-var database="http://127.0.0.1:5984/"+edificio+"/cr"+numero;
-var comments="http://127.0.0.1:5984/comments/comments_"+edificio+numero;
-var comm = [];
+//var database="http://127.0.0.1:5984/"+edificio+"/cr"+numero;
+//var comments="http://127.0.0.1:5984/comments/comments_"+edificio+numero;
+//var comm = [];
 // edificio can be "spv" or "diag" for now
 var countField=0;
 
@@ -137,15 +137,13 @@ app.get("/classroom"+numero+"/comments", function(req,res) {
                     console.log("["+msg.fields.routingKey+"]: "+msg.content.toString());
                     var id="cr"+numero;
                     var rev=getRev(id);
-                    var field="comment"+countField;
-                    countField++;
                     var comment={
                                 "date": today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear(),
                                 "hour": today.getHours()+":"+today.getMinutes()+";",
                                 "user": "nil",
                                 "comment": msg.content.toString()
                                 }
-                    comments.push(comm);
+                    comm.push(comment);
                     updateComment(edificio,id,rev,comm);
                     res.send("["+msg.fields.routingKey+"]: "+msg.content.toString());
                 }, {noAck: true});
