@@ -1,0 +1,25 @@
+{"total_rows":1,"offset":0,"rows":[zz
+{
+    "id":"cr24",
+    "key":"cr24",
+    "value":{"rev":"2-da636f56e9760f988e74246d20a41a3a"},
+    "doc":{
+        "_id":"cr24",
+        "_rev":"2-da636f56e9760f988e74246d20a41a3a",
+        "name":24,
+        "number":24,
+        "floor":"2nd",
+        "seats":140,
+        "desk_type":"standard",
+        "board_type":"marking pen",
+        "projector":"yes",
+        "mic":"yes",
+        "coat_hangers":"yes",
+        "sockets_number":4,
+        "wi-fi":"medium",
+        "exits":2,
+        "back_entrance":"nil",
+        "type":"classroom"
+    }
+}
+]}
