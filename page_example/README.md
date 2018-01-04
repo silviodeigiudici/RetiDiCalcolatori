@@ -1,8 +1,8 @@
-1) start CouchDB using Docker:
-        docker run -p 5984:5984 -d couchdb
-
-    to manipulate our database use the address:
-        /127.0.0.1:5894/_utils
+1) start CouchDB:
+    DB stucture:
+        - a database for all buildings
+        - a database for each building with classrooms
+          in each classroom we have information and comments
 
 2) run nodejs:
     $ node classroom.js X N  {X = building name; N = number of the classroom we want access to}
