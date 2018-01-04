@@ -1,17 +1,26 @@
-# ClassRoomAdvisor
-Progetto di Reti di Calcolatori, è un applicazione web che fornisce informazioni sulle aule nei vari edifici dell'Università La Sapienza di Roma, insieme ad informazioni utili sui sevizi nei dintorni, meteo e indicazioni stradali
+1) start CouchDB:
+    DB stucture:
+        - a database for all buildings
+        - a database for each building with classrooms
+        - a database for comments (a document for each classroom)
 
-##### TODO
-1. [x] Definire struttura database e insieme dei dati di interesse
-2. [ ] Login usando Google SignIn e in locale
-3. [ ] Informazioni sull' edificio, luoghi nei dintorni e meteo
-4. [ ] Indicazioni per come raggiungere l'edificio
-5. [x] Chat globale
-6. [ ] Informazioni sull' aula, galleria fotografica e avvisi sulla stessa
-7. [ ] Documentazione API REST usate
+2) run nodejs:
+    $ node classroom.js X N  {X = building name; N = number of the classroom we want access to}
 
-###### Scritto da:
-* Silvio Dei Giudici
-* Nunziato Crisafulli
-* Marco Morella
-* Mattia Nicolella
+Now you can access to classroom data:
+
+->  Classroom info (number, seats ...)
+    Use http method GET at the address ../classroomN
+
+    ex. curl 127.0.0.1:3000/classroomN
+
+->  Photo from flickr
+    Use http method get at the address ../classroomN/photo
+
+    ex. curl 127.0.0.1:3000/classroomN/photo
+
+    tag is the keyword of photo research
+    this procedure download photo from flickr in a folder called "photo"
+
+->  Comments
+    TODO
