@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ClassRoomAdvisor</title>
+  </head>
+  <body>
+    <h1>Profile</h1>
+    <% if(user.local){%>
+    <h3>Local Info<h3>
+      <p> username: <%=user.local.username%></p>
+      <%}else{%>
+    <h3>Google Info<h3>
+      <p> username: <%=user.google.name%></p>
+      <%}%>
+    <a href='/logout'>Log Out</a><br>
+  </body>
+</html>

@@ -3,18 +3,17 @@ const ip = "localhost";
 const url = "ws://" + ip + ":" + port;
 
 const websocket = new WebSocket(url);
-const logger = document.getElementById('log');
+const textarea = document.getElementById('messarea');
 
-websocket.onopen = function(event){
-    websocket.send("Hello there, i'm a new client!");
+websocket.onopen = (event) => {
     };
 
-websocket.onmessage = function(event){
+websocket.onmessage = (event) => {
     var info = JSON.parse(event.data);
-    logger.innerHTML += "From: " + info.name + " | Date: " + info.datatime + " | Message: " + info.message + "<br>";
+    textarea.innerHTML += "From: " + info.name + " | Date: " + info.datatime + "\n" + "\t" + "Message: " + info.message + "\n";
     };
 
-document.querySelector('button').onclick = function(){
+document.querySelector('button').onclick = () => {
     var message = document.getElementById('text').value;
     websocket.send(message);
     };
