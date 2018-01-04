@@ -1,10 +1,12 @@
+// passport strategy for local login
 const Local_Strategy =require('passport-local').Strategy;
-//google oauth strategy
+//passport strategy for google oauth login
 const Google_Strategy = require('passport-google-oauth20').Strategy;
 //data needed to call google api
-const OAuth_data=require('./OAuth');
-//requiring user handler module
+const OAuth_data=require('./OAuth_Secret');
+//user handler module
 const User=require('./user');
+
 module.exports = function(passport){
 //serialize an user to authenticate its sessions
   passport.serializeUser(function(user,done){
@@ -32,10 +34,10 @@ module.exports = function(passport){
         console.log("invalid fields");
         return done(null,false,req.flash('signupMessage','missing username or password!') );
     }
-    //create the user
-    var usr= {local:{ "username":username,"password":User.createhash(password)}};
     //check if the user doesn't already exist and create it
+    var usr= {local:{ "username":username,"password":User.createhash(password)}};
     User.search(username,function(found,user){
+      // if the user exists abort and show message on page
       if(found){
         done(null,false,req.flash('signupMessage','existing user!'));
       } else{
@@ -59,9 +61,11 @@ module.exports = function(passport){
       }
       //make a request to the database to get the userdata
       User.search(username,function(found,user){
+        // abort in case of unexisting user
         if(found==false){
           return done(null,false,req.flash('loginMessage','wrong username'));
         } else{
+          // verify user password
           User.check(user,password,function(verified){
             if(verified){
               return done(null,user);
@@ -75,15 +79,14 @@ module.exports = function(passport){
   }));
 
   passport.use("google",new Google_Strategy({
-
+        // app data to authenticate app on google authentication server
         clientID        : OAuth_data.google.clientID,
         clientSecret    : OAuth_data.google.clientSecret,
         callbackURL     : OAuth_data.google.callbackURL,
 
   },function(token,refresh,profile,done){
-    //get the user from google to the database
     var usr={ google:{ "name":profile.displayName,"token":token}}
-    //search for the user in the database
+    //check if the user was already saved on the database
     User.search(usr.google.name,function(found,user){
       if(found==true){
         return done(null,user);
