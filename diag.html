@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Building SPV</title>
+    <title>Building DIAG</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -19,40 +19,22 @@
     </style>
     <script>
 
-    function populateSelectBox()	{ //this function populate the selectbox on load
-    var select = document.getElementById('CR');
-
-    while ( select.childNodes.length >= 1 )
-        {select.removeChild(select.firstChild); }
-
-
-    var Classes = 30; //will change this variable with the number of classrooms ,taken from the database in the next build
-    for(var i=1;i<=Classes;i++){
-        //adding a check here will let you choose if the classroom satisfies the research terms of the user (TODO)
-        newOption = document.createElement('option');
-        newOption.value='Aula'+i;
-        newOption.text='Aula'+i;
-        select.appendChild(newOption);}
-    }
-
       var flag = true; //this flag is needed for the Routing
       var map;
       var infowindow;
       var geocoder = new google.maps.Geocoder;
 
       function initMap() {
-        var spv = {lat: 41.893284, lng: 12.493367};
+        var Diag = {lat: 41.8910001, lng: 12.5036217};
         map = new google.maps.Map(document.getElementById('map'), {
-          center: spv,
+          center: Diag,
           zoom: 16,
           mapTypeId: 'roadmap'
         });
 
-
-
        //marker building
        var marker = new google.maps.Marker({
-          position: spv,
+          position: Diag,
           icon : {  //changing the marker icon from default,resizing it
             url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
             scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -64,42 +46,41 @@
 
         infowindow = new google.maps.InfoWindow();
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent('San Pietro In Vincoli , Via Eudossiana, 18, 00184 Roma RM');
+          infowindow.setContent('Dipartimento di Ingegneria informatica automatica e gestionale, Via Ariosto, 25, 00185 Roma RM');
           infowindow.open(map, this);
         });
-
 
 
         //using places to find all restaurants
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
-          location: spv,
+          location: Diag,
           radius: 480,
-          type: ['restaurant']    //Type of Search
+          type: ['restaurant']    //Searching
         }, callback);
 
         //using places to find all bars
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
-          location: spv,
+          location: Diag,
           radius: 480,
-          type: ['bar']
+          type: ['bar']      //Searching
         }, callbackB);
 
 
         //using places to find all Points of Interests
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
-          location: spv,
+          location: Diag,
           radius: 480,
-          type: ['library']  || ['art_gallery'] || ['museum'] || ['church']  //Multi-Search
+          type: ['library']  || ['art_gallery'] || ['museum'] || ['church']  //Searching
          }, callbackA);
 
       }
 
 
 
-    //Here() will locate the user and pin a marker on his current location
+
      function Here(){
          //let's locate the user
         if (navigator.geolocation) {
@@ -120,22 +101,24 @@
         });
 
 
-        //using reverse geocoding to get an address from latitude and longitude
-        var UserLoc = '';
-        var lat = parseFloat(position.coords.latitude);
-        var lng = parseFloat(position.coords.longitude);
-        var latlng = new google.maps.LatLng(lat, lng);
-        var geocoder = geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    UserLoc += results[0].address_components[1].long_name + ", " + results[0].address_components[0].long_name
-                    + ", "+   results[0].address_components[2].long_name;}
+            //using reverse geocoding to get an address from latitude and longitude
+            var UserLoc = '';
+            var lat = parseFloat(position.coords.latitude);
+            var lng = parseFloat(position.coords.longitude);
+            var latlng = new google.maps.LatLng(lat, lng);
+            var geocoder = geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        UserLoc += results[0].address_components[1].long_name + ", " + results[0].address_components[0].long_name
+                        + ", "+   results[0].address_components[2].long_name;
+
+                    }
                 }
             });
 
 
-        //placing an onClick window,to show the user's address on the marker we've placed
+
         infowindow = new google.maps.InfoWindow();
         google.maps.event.addListener(markerUserLocation, 'click', function() {
           infowindow.setContent('UserLocation : '+UserLoc);
@@ -152,15 +135,16 @@
 
 }
 
-        //MyWay() will create a route from the address given by the user,and our building.
+
         function MyWay(){
 
         //getting the output from the form and checking if we don't already have a route
         if (flag){
             var addr = document.getElementById("input1").value;
             flag = false;
-
             //Let's create a track from A(user location) to B(Class building)
+
+
 
             var markerArray = [];
 
@@ -186,17 +170,21 @@
         else{window.alert('Directions request failed,adding too many addresses,please reload the page ');}
       }
 
-//Next three functions are all used by MyWay()
-//calculateAndDisplayRoute calls both showSteps and attachInstructionText,to create the route and placing instructions markers on it.
+
       function calculateAndDisplayRoute(directionsDisplay, directionsService,
           markerArray, stepDisplay, map,address) {
+
+        // First, remove any existing markers from the map.
+        for (var i = 0; i < markerArray.length; i++) {
+          markerArray[i].setMap(null);
+        }
         // Retrieve the start and end locations and create a DirectionsRequest using
         // WALKING directions.
         directionsService.route({
           origin : address,
-          destination: 'Via Eudossiana, 18, 00184 Roma RM',  //The destination is hardcoded,since we want to direct the user to the building
-          travelMode: 'WALKING'                              //since the app is made for students,WALKING is the most fitting mode.
-        }, function(response, status) {
+          destination: 'Via Ariosto, 25, 00185 Roma RM',
+          travelMode: 'WALKING'
+               }, function(response, status) {
           // Route the directions and pass the response to a function to create
           // markers for each step.
           if (status === 'OK') {
@@ -231,6 +219,7 @@
         });
       }
 
+
 //functions called by Places services functions previously written,to create markers
 
       function callback(results, status) {
@@ -248,7 +237,7 @@
           }
         }
       }
-      function callbackB(results, status) {
+    function callbackB(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             createMarkerBars(results[i]);
@@ -273,7 +262,7 @@
           infowindow.setContent(place.name);
           infowindow.open(map, this);
         });
-      }
+    }
 
 
        //Create markers for all findings for for Bars
@@ -323,14 +312,7 @@
       }
     </script>
   </head>
-  <body Onload = "populateSelectBox()">
-
-    </select>
-    <b>Choose a ClassRoom: </b>
-    <select id="CR">
-      <option value="Aula 0">Aula 0</option>
-      <option value="Aula 1">Aula 1</option>
-    </select>
+  <body>
 
 
     <div id="map"></div>
