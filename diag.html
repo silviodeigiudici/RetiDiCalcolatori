@@ -23,6 +23,10 @@
     function populateSelectBox()	{ //this function populate the selectbox on load
     var select = document.getElementById('CR');
 
+/* this cycle is not needed now,but may be to avoid problems with reloading,so the choose list is always empty before being populated
+while ( select.childNodes.length >= 1 )
+    {select.removeChild(select.firstChild); }*/
+
     var Classes = 30; //will change this variable with the number of classrooms ,taken from the database in the next build
     for(var i=1;i<=Classes;i++){
         //adding a check here will let you choose if the classroom satisfies the research terms of the user (TODO)
@@ -183,21 +187,17 @@
         else{window.alert('Directions request failed,adding too many addresses,please reload the page ');}
       }
 
-
+      //Next three functions are all used by MyWay()
+//calculateAndDisplayRoute calls both showSteps and attachInstructionText,to create the route and placing instructions markers on it.
       function calculateAndDisplayRoute(directionsDisplay, directionsService,
           markerArray, stepDisplay, map,address) {
-
-        // First, remove any existing markers from the map.
-        for (var i = 0; i < markerArray.length; i++) {
-          markerArray[i].setMap(null);
-        }
         // Retrieve the start and end locations and create a DirectionsRequest using
         // WALKING directions.
         directionsService.route({
           origin : address,
-          destination: 'Via Ariosto, 25, 00185 Roma RM',
-          travelMode: 'WALKING'
-               }, function(response, status) {
+          destination: 'Via Ariosto, 25, 00185 Roma RM',  //The destination is hardcoded,since we want to direct the user to the building
+          travelMode: 'WALKING'                              //since the app is made for students,WALKING is the most fitting mode.
+        }, function(response, status) {
           // Route the directions and pass the response to a function to create
           // markers for each step.
           if (status === 'OK') {
@@ -232,7 +232,6 @@
         });
       }
 
-
 //functions called by Places services functions previously written,to create markers
 
       function callback(results, status) {
@@ -250,7 +249,7 @@
           }
         }
       }
-    function callbackB(results, status) {
+      function callbackB(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             createMarkerBars(results[i]);
@@ -275,7 +274,7 @@
           infowindow.setContent(place.name);
           infowindow.open(map, this);
         });
-    }
+      }
 
 
        //Create markers for all findings for for Bars
@@ -324,11 +323,10 @@
         infoWindow.open(map);
       }
 
-
-       function PageSwitch(){
-         var url=CR.value+".html";
-         document.location.href = url;
-        }
+            function PageSwitch(){
+          var url=CR.value+".html";
+          document.location.href = url;
+          }
     </script>
   </head>
   <body Onload = "populateSelectBox()">
@@ -336,8 +334,6 @@
     </select>
     <b>Choose a ClassRoom: </b>
     <select id="CR">
-      <option value="Aula 0">Aula 0</option>
-      <option value="Aula 1">Aula 1</option>
     </select>
     <button onclick=PageSwitch();>Continue</button>
 

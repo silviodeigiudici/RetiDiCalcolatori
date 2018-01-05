@@ -22,6 +22,10 @@
     function populateSelectBox()	{ //this function populate the selectbox on load
     var select = document.getElementById('CR');
 
+/* this cycle is not needed now,but may be to avoid problems with reloading,so the choose list is always empty before being populated
+while ( select.childNodes.length >= 1 )
+    {select.removeChild(select.firstChild); }*/
+
     var Classes = 30; //will change this variable with the number of classrooms ,taken from the database in the next build
     for(var i=1;i<=Classes;i++){
         //adding a check here will let you choose if the classroom satisfies the research terms of the user (TODO)
@@ -329,8 +333,6 @@
     </select>
     <b>Choose a ClassRoom: </b>
     <select id="CR">
-      <option value="Aula 0">Aula 0</option>
-      <option value="Aula 1">Aula 1</option>
     </select>
     <button onclick=PageSwitch();>Continue</button>
 
