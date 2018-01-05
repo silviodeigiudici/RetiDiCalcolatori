@@ -321,6 +321,11 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+
+            function PageSwitch(){
+          var url=CR.value+".html";
+          document.location.href = url;
+          }
     </script>
   </head>
   <body Onload = "populateSelectBox()">
@@ -331,7 +336,7 @@
       <option value="Aula 0">Aula 0</option>
       <option value="Aula 1">Aula 1</option>
     </select>
-
+    <button onclick=PageSwitch();>Continue</button>
 
     <div id="map"></div>
     &nbsp;

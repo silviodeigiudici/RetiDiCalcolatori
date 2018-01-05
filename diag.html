@@ -19,6 +19,23 @@
     </style>
     <script>
 
+
+    function populateSelectBox()	{ //this function populate the selectbox on load
+    var select = document.getElementById('CR');
+
+    while ( select.childNodes.length >= 1 )
+        {select.removeChild(select.firstChild); }
+
+
+    var Classes = 30; //will change this variable with the number of classrooms ,taken from the database in the next build
+    for(var i=1;i<=Classes;i++){
+        //adding a check here will let you choose if the classroom satisfies the research terms of the user (TODO)
+        newOption = document.createElement('option');
+        newOption.value='Aula'+i;
+        newOption.text='Aula'+i;
+        select.appendChild(newOption);}
+    }
+
       var flag = true; //this flag is needed for the Routing
       var map;
       var infowindow;
@@ -310,10 +327,23 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+
+
+       function PageSwitch(){
+         var url=CR.value+".html";
+         document.location.href = url;
+        }
     </script>
   </head>
-  <body>
+  <body Onload = "populateSelectBox()">
 
+    </select>
+    <b>Choose a ClassRoom: </b>
+    <select id="CR">
+      <option value="Aula 0">Aula 0</option>
+      <option value="Aula 1">Aula 1</option>
+    </select>
+    <button onclick=PageSwitch();>Continue</button>
 
     <div id="map"></div>
     &nbsp;
@@ -336,6 +366,6 @@
     <input type='button' value="How to reach" onclick="MyWay()"></button>
     <p> Clicking submit will generate a route from the address to the building,if the address is valid.</p>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY &libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3trgUNPNZXA5TELYlqqihIsqDvg6XBGc &libraries=places&callback=initMap" async defer></script>
   </body>
 </html>
