@@ -22,10 +22,6 @@
     function populateSelectBox()	{ //this function populate the selectbox on load
     var select = document.getElementById('CR');
 
-    while ( select.childNodes.length >= 1 )
-        {select.removeChild(select.firstChild); }
-
-
     var Classes = 30; //will change this variable with the number of classrooms ,taken from the database in the next build
     for(var i=1;i<=Classes;i++){
         //adding a check here will let you choose if the classroom satisfies the research terms of the user (TODO)
