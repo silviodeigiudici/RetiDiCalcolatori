@@ -1,0 +1,10 @@
+To test:
+-nodejs testing.js to start the server
+-open in browser http://localhost:8080/edificio
+
+To change building:
+-open with an editor testing.js and change the variable building,for now only spv and DIAG are recognized.
+
+
+testing.js written by Silvio
+edificio.ejs written by Marco
