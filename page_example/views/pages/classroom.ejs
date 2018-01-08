@@ -1,0 +1,61 @@
+<!-- views/pages/classroom.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ClassRoomAdvisor</title>
+</head>
+<body class="container">
+
+<header>
+    <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+                Classroom Page
+            </a>
+        </div>
+
+    </div>
+    </nav>
+
+</header>
+
+<main>
+    <div class="jumbotron">
+        <h1>Classroom <%=number%> </h1>
+
+        <h2>Info:</h2>
+        <p><%= infos %></p>
+
+        <h2>Comments:</h2>
+        <p><%=JSON.stringify(comments)%></p>
+
+        <form action="/classroom<%=number%>" method="POST" >
+            Comment: <input type="text" name="comment" value="Write your comment here"><br>
+            <input type="submit" value="Send" >
+        </form>
+
+    </div>
+
+    <div class="col-sm-4">
+
+        <div class="well">
+            <h3>Flickr Photo: </h3>
+            <% for(var i=0; i<n_links; i++) {%>
+            <img src=<%=image[i]%> alt="classroom_img">
+            <% } %>
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    <p class="text-center text-muted">© Copyright 2017 ClassRoomAdvisor</p>
+</footer>
+
+</body>
+</html>
