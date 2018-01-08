@@ -11,11 +11,17 @@ app.listen(server_port, () => {
     console.log('Server in ascolto');
     });
 
-
-app.get('/edificio',(req,res) => {
+app.get("/spv",(req,res) => {
   //changing those 3 will let you choose how many classrooms,which and what building
-  var building = 'DIAG';
+  //var building = 'spv';
   var num_classes = 3;
   var classes = ["3", "4", "24"];
-  res.render('edificio.ejs', {num_classes :num_classes, classes:classes,building:building});
+  res.render('edificio.ejs', {num_classes :num_classes, classes:classes,building:'spv'});
+});
+app.get("/diag",(req,res) => {
+  //changing those 3 will let you choose how many classrooms,which and what building
+  //var building = 'DIAG';
+  var num_classes = 3;
+  var classes = ["3", "4", "24"];
+  res.render('edificio.ejs', {num_classes :num_classes, classes:classes,building:'DIAG'});
 });
