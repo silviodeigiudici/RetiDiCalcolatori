@@ -17,7 +17,8 @@
         padding: 0;
       }
     </style>
-    <script id="mainscript" data-build="<%=building%>">
+    <script id="mainscript"
+    data-build="<%=building%>" data-add="<%=address%>" data-nam="<%=build_name%>"data-lat="<%=lat%>" data-lon="<%=lon%>"   >
 
       var flag = true; //this flag is needed for the Routing
       var map;
@@ -25,22 +26,20 @@
       var geocoder = new google.maps.Geocoder;
       var infocontent;
       var buildinglatlng ;
-      var buildingaddress ;
+      var addressB ;
 
 
       function initMap() {
-          //since initMap is a callback function,we are passing the building chosen in this way.
-          buildingA = document.getElementById("mainscript").getAttribute("data-build");
-          //The DB will cater to this part in a future build,for now we'll hardcode the interaction.
-          if (buildingA == 'spv'){
-              infocontent = 'San Pietro In Vincoli , Via Eudossiana, 18, 00184 Roma RM';
-              buildinglatlng = {lat: 41.893284, lng: 12.493367};}
-          else if (buildingA == 'DIAG'){
-                infocontent = 'Dipartimento di Ingegneria Informatica Automatica e Gestionale, Via Ariosto, 25, 00185 Roma RM';
-                buildinglatlng = {lat: 41.8910001, lng: 12.5036217};}
-          else {infocontent = 'Dipartimento di Ingegneria informatica automatica e gestionale, Via Ariosto, 25, 00185 Roma RM';
-                buildinglatlng = {lat: 41.8910001, lng: 12.5036217};
-                window.alert("ERROR IN PROCESSING THE BUILDING!\nSWITCHED TO DEFAULT OPTION : DIAG,PLEASE RETRY.");}
+          //since initMap is a callback function,we are passing the building chosen in this way
+          //data-add,data-build,data-nam,data-lat and data-lon are taken from the building database!
+        buildingA = document.getElementById("mainscript").getAttribute("data-build");
+        addressB = document.getElementById("mainscript").getAttribute("data-add");
+        infocontent = document.getElementById("mainscript").getAttribute("data-nam") + "\n" + addressB;
+
+        var latA = parseFloat(document.getElementById("mainscript").getAttribute("data-lat"));
+        var lngB = parseFloat(document.getElementById("mainscript").getAttribute("data-lon"));
+
+        buildinglatlng = {lat : latA,lng : lngB};
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: buildinglatlng,

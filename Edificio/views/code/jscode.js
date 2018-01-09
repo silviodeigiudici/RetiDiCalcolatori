@@ -217,14 +217,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
         // Retrieve the start and end locations and create a DirectionsRequest using
         // WALKING directions.
-        buildingA = document.getElementById("mainscript").getAttribute("data-build");
-        if (buildingA == 'spv'){
-            buildingaddress = 'Via Eudossiana, 18, 00184 Roma RM';}
-        else{ buildingaddress = 'Via Ariosto, 25, 00185 Roma RM';} //since diag is the default option we are putting its address
-
         directionsService.route({
           origin : address,
-          destination: buildingaddress,  //The destination is hardcoded,since we want to direct the user to the building
+          destination: addressB,  //The destination is hardcoded,since we want to direct the user to the building
           travelMode: 'WALKING'                              //since the app is made for students,WALKING is the most fitting mode.
         }, function(response, status) {
           // Route the directions and pass the response to a function to create
