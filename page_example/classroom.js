@@ -33,8 +33,8 @@ var optionsDown = {
 //call flickr API
 var Flickr=require('flickrapi'),
     flickrOptions = {
-      api_key: "KEY",
-      secret: "SECRET",
+      api_key: "0f2fd3e0083a9506dde252bb3087174f",
+      secret: "cb8dd5f580d759e0",
       user_id: "139197130@N06"
     };
 
@@ -79,7 +79,7 @@ app.get("/"+edificio+"/classroom"+numero, function(req,res) {
                     }, function(err, result) {
                       var ph_number=result.photos.total;
                       if (ph_number>10) ph_number=10;
-                      console.log("Photos found": ph_number);
+                      console.log("Photos found: "+ph_number);
                       for (var i=0; i<ph_number; i++) {
                         var ph=result.photos.photo[i];
                         var link="https://farm"+ph.farm+".staticflickr.com/"+ph.server+"/"+ph.id+"_"+ph.secret+".jpg";
@@ -89,7 +89,6 @@ app.get("/"+edificio+"/classroom"+numero, function(req,res) {
                         download.image(optionsDown)
                             .then(({ filename, image }) => {
                                 console.log('File saved to', filename)
-                                images.push(image);
                             }).catch((err) => {
                                 throw err
                             })
