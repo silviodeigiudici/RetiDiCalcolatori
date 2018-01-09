@@ -84,7 +84,7 @@ function get_info(message, username){ //this function create a JSON containing m
 
 function open_server_socket(server_socket, dict_req){ //a function that setting server_socket
 
-  server_socket.on('connection', (client, request) => { // handling a connection's request (sarebbe res, req)
+  server_socket.on('connection', (client, request) => { // handling a connection's request (res, req)
 
     const username = request.session.passport.user;
     const client_ip = request.connection.remoteAddress;
@@ -113,23 +113,23 @@ function open_server_socket(server_socket, dict_req){ //a function that setting 
 
 }
 
-function send_page(couchdb_buildings, request, req, res, meteo){
+function send_page(couchdb_buildings, request, req, res, meteo){ //function that get meteo and buildings info and send page index
 
-  request.get(meteo, (error_meteo, response_meteo, body_meteo) => {
+  request.get(meteo, (error_meteo, response_meteo, body_meteo) => { //get meteo info
 
     var info = JSON.parse(body_meteo);
     var weather = info.weather[0].main
     var temperature = info.main.temp
     var wind = info.wind.speed
 
-    request.get(couchdb_buildings, (error_couch, response_couch, body_couch) => {
+    request.get(couchdb_buildings, (error_couch, response_couch, body_couch) => { //get all buildings
 
       var json = JSON.parse(body_couch);
       var num_edifici = json.total_rows;
       var edifici = json.rows;
 
       if(!error_meteo && !error_couch){
-        res.render('index.ejs', {weather: weather, temp: temperature, wind: wind, num_edifici: num_edifici, edifici:edifici});
+        res.render('index.ejs', {weather: weather, temp: temperature, wind: wind, num_edifici: num_edifici, edifici:edifici}); //send page with ejs's parameters
         }
       });
 
