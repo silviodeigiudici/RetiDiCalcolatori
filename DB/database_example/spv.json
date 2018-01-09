@@ -1,25 +1,8 @@
-{"total_rows":1,"offset":0,"rows":[zz
-{
-    "id":"cr24",
-    "key":"cr24",
-    "value":{"rev":"2-da636f56e9760f988e74246d20a41a3a"},
-    "doc":{
-        "_id":"cr24",
-        "_rev":"2-da636f56e9760f988e74246d20a41a3a",
-        "name":24,
-        "number":24,
-        "floor":"2nd",
-        "seats":140,
-        "desk_type":"standard",
-        "board_type":"marking pen",
-        "projector":"yes",
-        "mic":"yes",
-        "coat_hangers":"yes",
-        "sockets_number":4,
-        "wi-fi":"medium",
-        "exits":2,
-        "back_entrance":"nil",
-        "type":"classroom"
-    }
-}
+{"total_rows":6,"offset":0,"rows":[
+{"id":"cr11","key":"cr11","value":{"rev":"4-a4e0c49f12db6cf6cd88ba31ceeffdbd"},"doc":{"_id":"cr11","_rev":"4-a4e0c49f12db6cf6cd88ba31ceeffdbd","name":11,"number":11,"floor":"1st","seats":80,"desk_type":"standard","board_type":"chalk","projector":"yes","mic":"yes","coat_hangers":"yes","sockets_number":4,"exits":3,"back_entrance":"yes","type":"classroom","wi_fi":"high"}},
+{"id":"cr11comments","key":"cr11comments","value":{"rev":"2-5f2e7269cef66bee5cd868628089a7bf"},"doc":{"_id":"cr11comments","_rev":"2-5f2e7269cef66bee5cd868628089a7bf","comments":[]}},
+{"id":"cr24","key":"cr24","value":{"rev":"3-d34af13e8ceddb7101184c2961ca70a0"},"doc":{"_id":"cr24","_rev":"3-d34af13e8ceddb7101184c2961ca70a0","name":24,"number":24,"floor":"2nd","seats":140,"desk_type":"standard","board_type":"marking pen","projector":"yes","mic":"yes","coat_hangers":"yes","sockets_number":4,"exits":2,"back_entrance":"nil","type":"classroom","wi_fi":"medium"}},
+{"id":"cr24comments","key":"cr24comments","value":{"rev":"32-6c38bfa00e6b2fb0a4a34b8d53d21c3a"},"doc":{"_id":"cr24comments","_rev":"32-6c38bfa00e6b2fb0a4a34b8d53d21c3a","comments":[]}},
+{"id":"cr40","key":"cr40","value":{"rev":"3-ed3fc9aca90ad940e5fe048263a5584e"},"doc":{"_id":"cr40","_rev":"3-ed3fc9aca90ad940e5fe048263a5584e","name":40,"number":40,"floor":"1st","seats":120,"desk_type":"standard","board_type":"marking pen","projector":"yes","mic":"yes","coat_hangers":"yes","sockets_number":4,"exits":4,"back_entrance":"yes","type":"classroom","wi_fi":"high"}},
+{"id":"cr40comments","key":"cr40comments","value":{"rev":"2-94ea358ce7a6efb5974c2bc65a07e3fb"},"doc":{"_id":"cr40comments","_rev":"2-94ea358ce7a6efb5974c2bc65a07e3fb","comments":null}}
 ]}

@@ -2,7 +2,7 @@
 * ###### Utenti: `/ClassRoomAdvisor/users/"username"`
 * ###### Edificio: `/ClassRoomAdvisor/buildingsdb/"building-name"`
 * ###### Aula: `/ClassRoomAdvisor/"building-name"/cr"room-number"`
-* ###### Commenti: `/ClassRoomAdvisor/comments/"room-number"`
+* ###### Commenti: `/ClassRoomAdvisor/"building-name"/cr"room-number"comments`
 
 ### TODOs:
   1.  [x] Define Db Structure

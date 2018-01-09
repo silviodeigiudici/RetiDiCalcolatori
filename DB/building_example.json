@@ -1,6 +1,6 @@
 {
   name:"eventuale nome dell'edificio",
-  addresses: [ { address:"indirizzo",number:"numero_civico"} ],
+  addresses: [ { address:"indirizzo",house_number:"numero_civico",postal_code:"xxx",lat:"xxx",long:"xxx"} ],
  rooms:"numero_aule",
  shops: [ {shop:"locazione spaccio"}],
  vending_machines: [{machine:"locazione macchinetta"} ],

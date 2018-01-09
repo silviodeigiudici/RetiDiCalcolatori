@@ -1,3 +1,4 @@
-{"total_rows":0,"offset":0,"rows":[
-
+{"total_rows":2,"offset":0,"rows":[
+{"id":"crB2","key":"crB2","value":{"rev":"3-1f325877099a571e2371b5a36fe97dd4"},"doc":{"_id":"crB2","_rev":"3-1f325877099a571e2371b5a36fe97dd4","name":"B2","number":"B2","floor":"1st","seats":80,"desk_type":"standard","board_type":"chalk","projector":"yes","mic":"yes","coat_hangers":"yes","sockets_number":4,"wi-fi":"high","exits":2,"back_entrance":"no","type":"classroom"}},
+{"id":"crB2comments","key":"crB2comments","value":{"rev":"1-a4791e9d4a333d36bbabba97b7c555f1"},"doc":{"_id":"crB2comments","_rev":"1-a4791e9d4a333d36bbabba97b7c555f1","comments":[]}}
 ]}
