@@ -46,8 +46,3 @@ couch.get(building.toLowerCase()+'classrooms', "_all_docs").then(({data, headers
 	classes.push(data.rows[i].id);
 	console.log(classes[i]);}
 });}
-
-
-
-
-
