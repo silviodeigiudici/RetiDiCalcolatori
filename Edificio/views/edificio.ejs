@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Building <%=building%></title>
+    <title>Building <%=building.toUpperCase()%></title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
       /*placing and sizing the map*/
       #map {
-        height: 60%;
-        width:  60%;
+        height: 50%;
+        width:  50%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -84,10 +84,68 @@
     <b>Choose a ClassRoom: </b>
     <select id="CR">
         <% for(var i = 0; i<num_classes; i++){ %>
-            <option><%= classes[i] %></option>
+            <option><%="Class "+ classes[i] %></option>
         <%}%>
     </select>
     <button onclick=PageSwitch();>Continue</button>
+    <p>Building informations</p>
+    <p>
+    Number of Classrooms: <%=rooms%>
+    </br>
+    Study rooms:
+    <%if(study_rooms[0]!="nil" && study_rooms.length > 0){%>
+        <%=study_rooms[0]%>
+    <%}%>
+            <% for(var i = 1; i<study_rooms.length; i++){ %>
+                <% if(study_rooms[i]!= "nil"){%>
+                    <%=", " + study_rooms[i]%>
+                <%}%>
+            <%}%>
+    </br>
+    Libraries:
+    <%if(libraries[0]!="nil" && libraries.length > 0){%>
+        <%=libraries[0]%>
+    <%}%>
+    <% for(var i = 1; i<libraries.length; i++){ %>
+        <% if(libraries[i]!= "nil"){%>
+            <%="; " +  libraries[i]%>
+        <%}%>
+    <%}%>
+    </br>
+    </br>
+    wi-fi: <%= wifi%> </br>
+    Shops:
+     <%if(shops[0].name!="nil" && shops.length > 0){%>
+        <%=shops[0].name + "," + shops[0].location%>
+    <%}%>
+    <% for(var i = 1; i<shops.length; i++){ %>
+        <% if(shops[i].name!= "nil"){%>
+            <%="; " + shops[i].name + "," + shops[i].location %>
+        <%}%>
+    <%}%>
+    </br>
+    Vending machines:
+     <%if(vending_machines[0]!="nil" && vending_machines.length > 0){%>
+        <%=vending_machines[0]%>
+    <%}%>
+    <% for(var i = 1; i<vending_machines.length; i++){ %>
+        <% if(vending_machines[i]!= "nil"){%>
+            <%="; " + vending_machines[i]%>
+        <%}%>
+    <%}%>
+    </br>
+    Drinking fountains:
+     <%if(drinking_fountains[0]!="nil" && drinking_fountains.length > 0){%>
+        <%=drinking_fountains[0]%>
+    <%}%>
+    <% for(var i = 1; i<drinking_fountains.length; i++){ %>
+        <% if(drinking_fountains[i]!= "nil"){%>
+            <%= drinking_fountains[i]%>
+        <%}%>
+    <%}%>
+    </p>
+
+
 
 
     <div id="map"></div>
