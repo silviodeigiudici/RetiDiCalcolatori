@@ -1,17 +1,12 @@
-# ClassRoomAdvisor
-Progetto di Reti di Calcolatori, è un applicazione web che fornisce informazioni sulle aule nei vari edifici dell'Università La Sapienza di Roma, insieme ad informazioni utili sui sevizi nei dintorni, meteo e indicazioni stradali
+1) start CouchDB and RabbitMQ broker:
+    DB stucture:
+        - a database for all buildings called "buildings"
+        - a database for each building with classrooms
+        and classroom comments (ex "spv/cr24", "spv/cr24comments" or "diag/crB2" ...)
 
-##### TODO
-1. [x] Definire struttura database e insieme dei dati di interesse
-2. [ ] Login usando Google SignIn e in locale
-3. [ ] Informazioni sull' edificio, luoghi nei dintorni e meteo
-4. [ ] Indicazioni per come raggiungere l'edificio
-5. [x] Chat globale
-6. [ ] Informazioni sull' aula, galleria fotografica e avvisi sulla stessa
-7. [ ] Documentazione API REST usate
+2) run nodejs:
+    $ node buildings.js to start the server. Open http://localhost:8080/edificio
 
-###### Scritto da:
-* Silvio Dei Giudici
-* Nunziato Crisafulli
-* Marco Morella
-* Mattia Nicolella
+To change building:
+-open with an editor testing.js and change the variable building,for now only spv and diG are recognized.
+

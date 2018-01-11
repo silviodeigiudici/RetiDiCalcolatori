@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Building <%=building.toUpperCase()%></title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /*placing and sizing the map*/
+      #map {
+        height: 50%;
+        width:  50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 200;
+        padding: 0;
+      }
+    </style>
+    <script id="mainscript"
+    data-build="<%=building%>" data-add="<%=address%>" data-nam="<%=build_name%>"data-lat="<%=lat%>" data-lon="<%=lon%>"   >
+
+      var flag = true; //this flag is needed for the Routing
+      var map;
+      var infowindow;
+      var geocoder = new google.maps.Geocoder;
+      var infocontent;
+      var buildinglatlng ;
+      var addressB ;
+
+
+      function initMap() {
+          //since initMap is a callback function,we are passing the building chosen in this way
+          //data-add,data-build,data-nam,data-lat and data-lon are taken from the building database!
+        buildingA = document.getElementById("mainscript").getAttribute("data-build");
+        addressB = document.getElementById("mainscript").getAttribute("data-add");
+        infocontent = document.getElementById("mainscript").getAttribute("data-nam") + "\n" + addressB;
+
+        var latA = parseFloat(document.getElementById("mainscript").getAttribute("data-lat"));
+        var lngB = parseFloat(document.getElementById("mainscript").getAttribute("data-lon"));
+
+        buildinglatlng = {lat : latA,lng : lngB};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: buildinglatlng,
+          zoom: 16,
+          mapTypeId: 'roadmap'
+        });
+
+       //marker building
+       var marker = new google.maps.Marker({
+          position: buildinglatlng,
+          icon : {  //changing the marker icon from default,resizing it
+            url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+            scaledSize: new google.maps.Size(50, 50), // scaled size
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0, 0)
+          },
+          map: map
+        });
+        //setting the info the user will get when clicking on the marker
+        infowindow = new google.maps.InfoWindow();
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(infocontent);
+          infowindow.open(map, this);
+        });
+
+        startServices();//this function just starts all places function to pin our researches on the map
+      }
+
+
+    function PageSwitch(){
+        var url="http://localhost:8080/aula?edificio="+"<%=building%>"+"&aula="+CR.value;
+        document.location.href = url;
+    }
+    </script>
+    <script src="code/jscode.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3trgUNPNZXA5TELYlqqihIsqDvg6XBGc&libraries=places&callback=initMap" async defer></script>
+
+  </head>
+  <body>
+
+    </select>
+    <b>Choose a ClassRoom: </b>
+    <select id="CR">
+        <% for(var i = 0; i<num_classes; i++){ %>
+            <option><%=classes[i] %></option>
+        <%}%>
+    </select>
+    <button onclick=PageSwitch();>Continue</button>
+    <p>Building informations</p>
+    <p>
+    Number of Classrooms: <%=rooms%>
+    </br>
+    Study rooms:
+    <%if(study_rooms.length > 0){%>
+        <%=study_rooms[0]%>
+    <%}%>
+            <% for(var i = 1; i<study_rooms.length; i++){ %>
+                <% if(study_rooms[i]!= "nil"){%>
+                    <%=", " + study_rooms[i]%>
+                <%}%>
+            <%}%>
+    </br>
+    Libraries:
+    <%if(libraries[0]!="nil" && libraries.length > 0){%>
+        <%=libraries[0]%>
+    <%}%>
+    <% for(var i = 1; i<libraries.length; i++){ %>
+        <% if(libraries[i]!= "nil"){%>
+            <%="; " +  libraries[i]%>
+        <%}%>
+    <%}%>
+    </br>
+    </br>
+    wi-fi: <%= wifi%> </br>
+    Shops:
+     <%if(shops[0].name!="nil" && shops.length > 0){%>
+        <%=shops[0].name + "," + shops[0].location%>
+    <%}%>
+    <% for(var i = 1; i<shops.length; i++){ %>
+        <% if(shops[i].name!= "nil"){%>
+            <%="; " + shops[i].name + "," + shops[i].location %>
+        <%}%>
+    <%}%>
+    </br>
+    Vending machines:
+     <%if(vending_machines[0]!="nil" && vending_machines.length > 0){%>
+        <%=vending_machines[0]%>
+    <%}%>
+    <% for(var i = 1; i<vending_machines.length; i++){ %>
+        <% if(vending_machines[i]!= "nil"){%>
+            <%="; " + vending_machines[i]%>
+        <%}%>
+    <%}%>
+    </br>
+    Drinking fountains:
+     <%if(drinking_fountains[0]!="nil" && drinking_fountains.length > 0){%>
+        <%=drinking_fountains[0]%>
+    <%}%>
+    <% for(var i = 1; i<drinking_fountains.length; i++){ %>
+        <% if(drinking_fountains[i]!= "nil"){%>
+            <%= drinking_fountains[i]%>
+        <%}%>
+    <%}%>
+    </p>
+
+
+
+
+    <div id="map"></div>
+    &nbsp;
+    <div id="warnings-panel"></div>
+
+    <p> <IMG SRC="http://maps.google.com/mapfiles/kml/shapes/bars.png" ALT="some text" WIDTH=32 HEIGHT=32> : Bars.
+    <IMG SRC="https://maps.google.com/mapfiles/kml/shapes/dining.png" ALT="some text" WIDTH=32 HEIGHT=32> : Restaurants.
+    <IMG SRC="http://maps.google.com/mapfiles/kml/shapes/arts.png" ALT="some text" WIDTH=32 HEIGHT=32> : Points of Interest.</p>
+
+    <p> Following Functions are still in beta for mobile users</p>
+
+    <p><input type="button" value="Where am I" onclick="Here();"> This will show where you are on the map.</p>
+
+    <p>To visualize the shortest route to the building,type an address in the following form : Route,Civic Number,City. </p>
+    <input type="text" id="input1" />
+    <input type='button' value="How to reach" onclick="MyWay()"></button>
+    <p> Clicking submit will generate a route from the address to the building,if the address is valid.</p>
+
+  </body>
+</html>
