@@ -45,7 +45,7 @@ module.exports= function(app,passport) {
   app.get('/google', passport.authenticate('google', { scope : ['profile'] }));
 
   //if this is called the nthe user has logged on google, so we must log him in in the app
-  //and enventually save him in the DB 
+  //and enventually save him in the DB
   app.get('/auth',
             passport.authenticate('google', {
                     successRedirect : '/profile',

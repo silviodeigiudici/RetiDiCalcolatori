@@ -16,6 +16,7 @@ app.use(bodyParser()); //read html forms
 app.use(session({secret: 'ClassRoomAdvisor'}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+app.set('views','../views'); // path to the views location
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(flash()) // support flash messages
 app.listen(port);
