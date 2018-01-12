@@ -15,7 +15,7 @@
         <p>Scegli l'edificio:</p>
         <div id="edifici">
           <% for(var i=0; i<num_edifici; i++) {%>
-          <a href="/<%= edifici[i].id %> "> <%= edifici[i].id %> </a><br>
+          <a href="/edificio?edificio=<%= edifici[i].id %> "> <%= edifici[i].id %> </a><br>
           <% } %>
         </div>
       </td>
