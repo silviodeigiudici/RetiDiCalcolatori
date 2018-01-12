@@ -12,7 +12,7 @@ module.exports = function(app, request, server_port, sessionParser, dict_req){
     verifyClient: (info, done) => { //this function check if the client is logged, if not refuses connection request
       sessionParser(info.req, {}, () => { //sessionParser allow to get passport information of the serializeUser function
         var passport = info.req.session.passport;
-        return done(passport != undefined && passport.user != undefined && dict_req[passport.user].isAuthenticated());
+        return done(passport != undefined && passport.user != undefined && dict_req[passport.user].isAuthenticated()); //this line check if the user is logged or not
         });
       }
     });

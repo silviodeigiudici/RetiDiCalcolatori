@@ -7,10 +7,10 @@ function open_server_socket(server_socket, dict_req){ //a function that setting 
     const req = dict_req[id];
     var username = undefined;
     if(req.user.local){
-      username = req.user.local.username;
+      username = req.user.local.username; //user is logged with local passport
     }
     else {
-      username = req.user.google.name;
+      username = req.user.google.name; //user is logged with oauth
     }
 
     const client_ip = request.connection.remoteAddress;
@@ -18,12 +18,12 @@ function open_server_socket(server_socket, dict_req){ //a function that setting 
     client.on('message', (message) => { //handling a message received
 
       var info = get_info(message, username);
-      if(dict_req[id] != undefined && dict_req[id].isAuthenticated()){
+      if(dict_req[id] != undefined && dict_req[id].isAuthenticated()){ //check if user is logged
           console.log("Messaggio ricevuto: " + message);
           server_socket.clients.forEach((client_socket) => client_socket.send(info)); //send message received to all clients
           }
       else{
-          client.close();
+          client.close(); //clone socket if user is not logged
           }
     });
 
