@@ -72,7 +72,7 @@ var create=function(usr,done){
       body: JSON.stringify(usr)
       //callback to check if the user already exists or there were problems
     },function (error,response,body){
-      if(!error && response.statusCode==202){
+        if(!error && (response.statusCode==202 || response.statusCode==201)){
         request({
           url:db+'/'+id,
           method:'GET'
