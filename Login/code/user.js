@@ -100,7 +100,7 @@ var create=function(usr,done){
 }
 // check if the password matches the saved hash
 var check=function(user,password,done){
-  return done(bcrypt.compareSync(password,savedpassword));
+  return done(bcrypt.compareSync(password,user.local.password));
 }
 
 // create the hash of a password to store it in the database

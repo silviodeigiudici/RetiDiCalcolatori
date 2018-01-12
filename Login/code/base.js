@@ -1,7 +1,7 @@
 //getting the required modules
 
 var express=require("express");
-var port =process.env.PORT || 3000
+var port =process.env.PORT || 8080
 var passport= require('passport');
 var cookieParser= require('cookie-parser');
 var bodyParser   = require('body-parser');
