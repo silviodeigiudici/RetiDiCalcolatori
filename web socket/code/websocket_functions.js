@@ -22,8 +22,8 @@ function check_connection(ws, req, client_ip){
 
 }
 
-function close_ws(wss, id){
-  wss.clients.forEach( (client) => {
+function close_ws(wss, id){ //close clients with an specific connection's id
+  wss.clients.forEach( (client) => { //client has id of passport session
     if(client.upgradeReq.user._id == id){
       console.log("Client logout, closing connection...");
       client.close();

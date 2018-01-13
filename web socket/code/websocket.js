@@ -1,6 +1,6 @@
 module.exports = function(app, wss){
 
-  const WSfunctions = require('./websocket_functions.js');
+  const WSfunctions = require('./websocket_functions.js'); //get functions
 
 
   app.ws('/edifici', (ws, req) => { //handling a new open connection
@@ -8,7 +8,7 @@ module.exports = function(app, wss){
     var username = undefined;
     const client_ip = req.connection.remoteAddress;
 
-    username = WSfunctions.check_connection(ws, req, client_ip);
+    username = WSfunctions.check_connection(ws, req, client_ip); //check connection and also take username
 
     ws.on('message', (msg) => { //handling a message received
         console.log("Message arrived: " + msg + ", from: " + username);
