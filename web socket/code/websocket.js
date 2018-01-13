@@ -1,27 +1,28 @@
-module.exports = function(app, request, server_port, sessionParser, dict_req){
-  const websocket = require('ws');
-  const http = require('http');
-
-  const server = http.createServer(app); //create a server using http because ws interfaces with http but not app
+module.exports = function(app, wss){
 
   const WSfunctions = require('./websocket_functions.js');
 
 
-  const server_socket = new websocket.Server({
-    server: server,
-    verifyClient: (info, done) => { //this function check if the client is logged, if not refuses connection request
-      sessionParser(info.req, {}, () => { //sessionParser allow to get passport information of the serializeUser function
-        var passport = info.req.session.passport;
-        return done(passport != undefined && passport.user != undefined && dict_req[passport.user].isAuthenticated()); //this line check if the user is logged or not
-        });
-      }
+  app.ws('/edifici', (ws, req) => { //handling a new open connection
+
+    var username = undefined;
+    const client_ip = req.connection.remoteAddress;
+
+    username = WSfunctions.check_connection(ws, req, client_ip);
+
+    ws.on('message', (msg) => { //handling a message received
+        console.log("Message arrived: " + msg + ", from: " + username);
+        WSfunctions.send_to_all(msg, username, wss);
     });
 
-    server.listen(server_port, () => { //server on listening
-        console.log('In ascolto sulla porta: ', server_port);
+    ws.on('close', (client) => { //handling a connection close
+      console.log("A client left chat: " + client_ip);
     });
 
-    WSfunctions.open_server_socket(server_socket, dict_req); //set ws, to call one time only!
+    ws.on('error', (client) => { //handling a error
+      console.log("There was an error with a client: " + error + " ip: " + client_ip);
+    });
+
+  });
 
 }
-

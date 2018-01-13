@@ -9,16 +9,13 @@ var session      = require('express-session');
 var flash= require('connect-flash');
 
 
+
 //linking middleware to application
 var app=express(); //starting express
 app.use(cookieParser()); //read coockies
 app.use(bodyParser()); //read html forms
 
-var sessionParser = session({
-    secret: 'ClassRoomAdvisor'
-    });
-
-app.use(sessionParser);
+app.use(session({secret: 'ClassRoomAdvisor'}));
 
 
 app.use(passport.initialize());
@@ -27,16 +24,16 @@ app.set('views','../views'); // path to the views location
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(flash()) // support flash messages
 
-const request = require('request');
 
+var expressWs = require('express-ws')(app); //use for web socket, needs it because module ws work on with http module
+var wss = expressWs.getWss('/edifici'); //get web socket server
 
-//app.listen(port);
-//console.log('up on port:' + port);
-
-var dict_req = {}; //this dictionary is used to save request object, because web socket can't access to passport information
+app.listen(port); //need to listen app after setting up web socket
+console.log('Up on port:' + port);
 
 //linking node modules
-require('./routes.js')(app,passport, dict_req); //routes for the application
+require('./routes.js')(app,passport, wss); //routes for the application
 require('./passport.js')(passport); // passport configuration for local authetication
-require('./websocket.js')(app, request, port, sessionParser, dict_req);
-require('./edifici')(app, request, express, dict_req);
+
+require('./websocket.js')(app, wss); //open seb socket server
+require('./edifici')(app, express); //routes to edifici

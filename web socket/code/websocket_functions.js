@@ -1,45 +1,48 @@
-function open_server_socket(server_socket, dict_req){ //a function that setting server_socket
 
-  server_socket.on('connection', (client, request) => { // handling a connection's request (sarebbe res, req)
+function check_connection(ws, req, client_ip){
 
-    const id = request.session.passport.user;
+  var username;
 
-    const req = dict_req[id];
-    var username = undefined;
+  console.log("Client at " + client_ip + " is now connect");
+  if(req.isAuthenticated()){ //if it's authenticated get username
+    console.log("Client authenticated");
     if(req.user.local){
       username = req.user.local.username; //user is logged with local passport
     }
     else {
       username = req.user.google.name; //user is logged with oauth
     }
+  }
+  else { //otherwise connection is closed
+    console.log("Client not authenticated, closing connection...");
+    ws.close();
+  }
 
-    const client_ip = request.connection.remoteAddress;
-
-    client.on('message', (message) => { //handling a message received
-
-      var info = get_info(message, username);
-      if(dict_req[id] != undefined && dict_req[id].isAuthenticated()){ //check if user is logged
-          console.log("Messaggio ricevuto: " + message);
-          server_socket.clients.forEach((client_socket) => client_socket.send(info)); //send message received to all clients
-          }
-      else{
-          client.close(); //clone socket if user is not logged
-          }
-    });
-
-    client.on('close', (client) => { //handling a connection close
-      console.log("Un client ha abbandonato la chat: " + client_ip);
-    });
-
-    client.on('error', (client) => { //handling a error
-      console.log("E' avvenuto un errore con un client: " + error);
-    });
-
-  });
+  return username;
 
 }
 
-function get_info(message, username){ //this function create a JSON containing message, datatime and name
+function close_ws(wss, id){
+  wss.clients.forEach( (client) => {
+    if(client.upgradeReq.user._id == id){
+      console.log("Client logout, closing connection...");
+      client.close();
+    }
+  });
+
+
+}
+
+function send_to_all(msg, username, wss){ //a function that send to all client a message
+  var info = create_message(msg, username);
+  wss.clients.forEach( (client) => {
+    console.log("Send message: " + info);
+    client.send(info);
+  });
+}
+
+
+function create_message(message, username){ //this function create a JSON containing message, datatime and name
   var date = new Date();
   var datatime = date.getHours() + ":" + date.getMinutes();
 
@@ -51,5 +54,9 @@ function get_info(message, username){ //this function create a JSON containing m
   return info;
   }
 
-module.exports.get_info=get_info;
-module.exports.open_server_socket=open_server_socket;
+
+
+module.exports.create_message=create_message;
+module.exports.send_to_all = send_to_all;
+module.exports.check_connection = check_connection;
+module.exports.close_ws = close_ws;

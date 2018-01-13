@@ -1,4 +1,6 @@
-module.exports= function(app,passport, dict_req) {
+module.exports= function(app,passport, wss) {
+
+  const WSfunctions = require('./websocket_functions.js');
 
   // render home page
   app.get('/', function (req,res){
@@ -37,9 +39,9 @@ module.exports= function(app,passport, dict_req) {
 
   // logout
   app.get('/logout', function(req, res) {
-    dict_req[req.user._id] = undefined;
-   req.logout();
-   res.redirect('/');
+    WSfunctions.close_ws(wss, req.user._id); //need to close cliets connected in chat (not only one if you open chat in multiple tabs)
+    req.logout();
+    res.redirect('/');
   });
 
   //initiate OAuth2 login with Google credentials
@@ -61,3 +63,5 @@ function isLoggedIn(req,res,next){
   }
   res.redirect('/'); // redirects
 }
+
+module.exports.isLoggedIn=isLoggedIn;

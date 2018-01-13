@@ -1,4 +1,8 @@
-module.exports = function(app, request, express, dict_req){
+module.exports = function(app, express){
+
+  const request = require('request');
+
+  const routes = require('./routes.js'); //needs to get isLoggedIn function
 
   const url_weather = "http://api.openweathermap.org/data/2.5/weather";
   const city = "Roma";
@@ -18,15 +22,9 @@ module.exports = function(app, request, express, dict_req){
   app.use(express.static('../views/support')); //to use files of web pages
 
 
-  app.get('/edifici', (req, res) => {
+  app.get('/edifici', routes.isLoggedIn, (req, res) => {
 
-    if(req.isAuthenticated()){
-      dict_req[req.user._id] = req; //add req in dictionary
       send_page(couchdb_buildings, request, req, res, meteo, couchdb_buildings);
-      }
-    else{
-        res.redirect('/login'); //redirect to the login's page written from mattia
-        }
 
     });
 
