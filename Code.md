@@ -1,19 +1,22 @@
 # Piccola Documentazione:
-  Ho usato il codice di mattia per verificare il funzionamento. I seguenti sono i files scritti da me:
+  Ho usato il codice di mattia per verificare il funzionamento e renderlo compatibile. I seguenti sono i files scritti da me:
+  
 * ##### _websocket.js_
 
-  E' il modulo che fa partire il server web socket e gestisce i client che si connettono a lui verificando che sono autenticati.
+  E' il modulo che fa partire il server web socket e gestisce i client che si connettono a lui verificando che sono autenticati 
+  e gestendo i vari eventi.
 
 * ##### _websocket functions.js_
 
-  In questo modulo sono presenti le funzioni usate dal modulo web socket. In particolare open_server_socket apre il server
-  e indica come controllare gli eventi dai client (quando riceve un messaggio, ecc) oltre a verificare sempre l'autenticazione,
-  e get_info crea un messaggio in cui sono incapsulati il messaggio, nome del mittente e orario.
+  In questo modulo sono presenti le funzioni usate dal modulo web socket. In particolare check_connection controlla se
+  l'utente è autenticato e prende il suo username, close_ws chiude la connessione dei client che non sono più loggati ma
+  hanno la chat aperta, send_to_all invia il messaggio ricevuto a tutti i client e create_message crea un messaggio in 
+  cui sono incapsulati il messaggio, nome del mittente e orario.
 
 * ##### _edifici.js_
 
-  Questo modulo invia la pagina edifici quando richiesta chiamando la funzione send_page che ottiene le informazioni del meteo e l'elenco degli edifici
-  passandoli a ejs.
+  Questo modulo invia la pagina edifici quando richiesta chiamando la funzione send_page che ottiene le informazioni del meteo e 
+  l'elenco degli edifici passandoli a ejs.
 
 * ##### _index.ejs_
 
@@ -25,9 +28,9 @@
 
 * ###### _stile.css_
 
-  Contiene delle indicazioni sulla disposizioni degli elementi sulla pagina index.ejs.
+  Contiene delle indicazioni sulla disposizione degli elementi sulla pagina index.ejs.
 
 * File Modificati:
 
-  Ho modificato il file routes.js e base.js per verificare il funzionamento della chat
+  Ho modificato il file routes.js per gestire il logout dell'utente e base.js per importare i moduli necessari
 
