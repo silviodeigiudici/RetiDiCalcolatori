@@ -21,8 +21,8 @@ module.exports= function(app) {
     //call flickr API
     var Flickr=require('flickrapi'),
         flickrOptions = {
-          api_key: "0f2fd3e0083a9506dde252bb3087174f",
-          secret: "cb8dd5f580d759e0",
+          api_key: "API_KEY",
+          secret: "SECRET",
           user_id: "139197130@N06"
         };
 
