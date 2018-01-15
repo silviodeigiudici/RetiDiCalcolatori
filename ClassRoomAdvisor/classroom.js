@@ -64,6 +64,7 @@ module.exports = function(app, request, express){
 
                         // RETRIEVE PHOTO FROM FLICKR
                         var tag=edificio+numero+"";
+                        console.log(tag);
                         Flickr.tokenOnly(flickrOptions, function(error, flickr) {
                             flickr.photos.search({
                               user_id: flickr.options.user_id,

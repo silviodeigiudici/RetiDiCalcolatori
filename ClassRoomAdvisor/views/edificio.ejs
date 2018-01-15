@@ -99,51 +99,41 @@
         <%=study_rooms[0]%>
     <%}%>
             <% for(var i = 1; i<study_rooms.length; i++){ %>
-                <% if(study_rooms[i]!= "nil"){%>
                     <%=", " + study_rooms[i]%>
-                <%}%>
             <%}%>
     </br>
     Libraries:
-    <%if(libraries[0]!="nil" && libraries.length > 0){%>
+    <%if(libraries.length > 0){%>
         <%=libraries[0]%>
     <%}%>
     <% for(var i = 1; i<libraries.length; i++){ %>
-        <% if(libraries[i]!= "nil"){%>
             <%="; " +  libraries[i]%>
-        <%}%>
     <%}%>
     </br>
     </br>
     wi-fi: <%= wifi%> </br>
     Shops:
-     <%if(shops[0].name!="nil" && shops.length > 0){%>
+     <%if(shops.length > 0){%>
         <%=shops[0].name + "," + shops[0].location%>
     <%}%>
     <% for(var i = 1; i<shops.length; i++){ %>
-        <% if(shops[i].name!= "nil"){%>
             <%="; " + shops[i].name + "," + shops[i].location %>
-        <%}%>
     <%}%>
     </br>
     Vending machines:
-     <%if(vending_machines[0]!="nil" && vending_machines.length > 0){%>
+     <%if(vending_machines.length > 0){%>
         <%=vending_machines[0]%>
     <%}%>
     <% for(var i = 1; i<vending_machines.length; i++){ %>
-        <% if(vending_machines[i]!= "nil"){%>
             <%="; " + vending_machines[i]%>
-        <%}%>
     <%}%>
     </br>
     Drinking fountains:
-     <%if(drinking_fountains[0]!="nil" && drinking_fountains.length > 0){%>
+     <%if(drinking_fountains.length > 0){%>
         <%=drinking_fountains[0]%>
     <%}%>
     <% for(var i = 1; i<drinking_fountains.length; i++){ %>
-        <% if(drinking_fountains[i]!= "nil"){%>
             <%= drinking_fountains[i]%>
-        <%}%>
     <%}%>
     </p>
 
