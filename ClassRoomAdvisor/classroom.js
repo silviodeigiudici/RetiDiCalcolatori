@@ -61,13 +61,15 @@ module.exports = function(app, request, express){
                         for (i=0;i<comms.length;i++) {
                             console.log(comms[i]);
                         }
+
                         // RETRIEVE PHOTO FROM FLICKR
+                        var tag=edificio+numero+"";
                         Flickr.tokenOnly(flickrOptions, function(error, flickr) {
                             flickr.photos.search({
                               user_id: flickr.options.user_id,
                               page: 1,
                               per_page: 100,
-                              tags: numero
+                              tags: tag
                             }, function(err, result) {
                               var ph_number=result.photos.total;
                               if (ph_number>10) ph_number=10;
@@ -94,6 +96,7 @@ module.exports = function(app, request, express){
                                   comm_length: comms.length,
                                   comments: comms
                               });
+                              links=[];
                           });
                         });
                     }, err =>{
