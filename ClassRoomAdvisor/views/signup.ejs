@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Signup to ClassRoomAdvisor</title>
+  </head>
+  <body>
+    <h3>Registrati</h3>
+    <% if (message.length > 0) { %>
+    <p><%= message %><p>
+       <% } %>
+    <form action='/signup' method='post'>
+      <label>E-Mail:</label>
+      <input type='text' name='email'>
+      <label>Username:</label>
+      <input type='text' name='username'>
+      <label>Password:</label>
+      <input type='password' name='password'>
+      <button type='submit'>Registrati</button>
+    </form>
+    <p>
+    <p>Remember to check your mail for the verification link!
+    </br>
+    You'll be redirected to the home page if the registration was successful.
+    </br>
+    Here if anything goes wrong.</p>
+    <a href="/login">Accedi</a><br>
+    <a href="/">indietro</a><br>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Confirming registration ClassRoomAdvisor</title>
+  </head>
+  <body>
+	<h3>Registration</h3>
+	<p> You will be redirected to the login screen in 5 seconds if no problems were encountered.<p>
+
+
+  </body>
+
+<script id="mainscript" data-pag="<%=page%>">
+(function(){
+   setTimeout(function(){
+     window.location = document.getElementById("mainscript").getAttribute("data-pag");
+   },3000); /* 1000 = 1 second*/
+})();
+</script>
+</html>

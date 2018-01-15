@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>ClassRoomAdvisor - Edifici</title>
+  <link rel="stylesheet" type="text/css" href="stile.css" />
+
+</head>
+<body>
+<a href="http://localhost:8080/profile">Profile</a>
+  <table>
+    <tr>
+      <td></td>
+      <td>
+        <p>Scegli l'edificio:</p>
+        <div id="edifici">
+          <% for(var i=0; i<num_edifici; i++) {%>
+          <a href="/edificio?edificio=<%= edifici[i].id %> "> <%= edifici[i].id %> </a><br>
+          <% } %>
+        </div>
+      </td>
+      <td>
+        <textarea id="messarea" readonly></textarea>
+        <div id="sending">
+          <input type="text" placeholder="Write your message here" id="text" />
+          <button>Send</button>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Info Meteo Roma:</p><br>
+        <p1>Tempo generale:</p1>
+        <p2><%= weather %></p2><br>
+        <p1>Temperatura:</p1>
+        <p2><%= temp %></p2><br>
+        <p1>Vento:</p1>
+        <p2><%= wind %></p2><br>
+      </td>
+    </tr>
+  </table>
+
+
+  <script src="jscode.js"></script>
+
+</body>
+</html>
