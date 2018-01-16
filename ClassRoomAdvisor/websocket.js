@@ -11,16 +11,16 @@ module.exports = function(app, wss){
     username = WSfunctions.check_connection(ws, req, client_ip); //check connection and also take username
 
     ws.on('message', (msg) => { //handling a message received
-        console.log("Message arrived: " + msg + ", from: " + username);
+        console.log("[websocket.js] Message arrived: " + msg + ", from: " + username);
         WSfunctions.send_to_all(msg, username, wss);
     });
 
     ws.on('close', (client) => { //handling a connection close
-      console.log("A client left chat: " + client_ip);
+      console.log("[websocket.js] A client left chat: " + client_ip);
     });
 
     ws.on('error', (client) => { //handling a error
-      console.log("There was an error with a client: " + error + " ip: " + client_ip);
+      console.log("[websocket.js] There was an error with a client: " + error + " ip: " + client_ip);
     });
 
   });

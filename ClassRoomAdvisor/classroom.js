@@ -1,18 +1,12 @@
 module.exports = function(app, request, express){
-    // modules we use to download image from flickr link
-    const download = require('image-downloader');
     const routes = require('./routes.js'); //needs to get isLoggedIn function
-    var optionsDown = {
-      url: '',
-      dest: ''
-    }
 
     // module to use couchdb database
     const NodeCouchDb = require('node-couchdb');
     const couch = new NodeCouchDb();
 
     couch.listDatabases().then(function(dbs) {
-        console.log(dbs);
+        console.log("[classroom.js] "+dbs);
     });
 
     //node module amqp (we use topics based queue)
@@ -21,8 +15,8 @@ module.exports = function(app, request, express){
     //call flickr API
     var Flickr=require('flickrapi'),
         flickrOptions = {
-          api_key: "0f2fd3e0083a9506dde252bb3087174f",
-          secret: "cb8dd5f580d759e0",
+          api_key: "API_KEY",
+          secret: "SECRET",
           user_id: "139197130@N06"
         };
 
@@ -48,7 +42,7 @@ module.exports = function(app, request, express){
             // RETRIEVE CLASSROOM INFO
             couch.get(edificio,"cr"+numero).then(({data, headers, status}) => {
                 // data is json response
-                console.log(data);
+                console.log("[classroom.js] "+data);
                     info="Name: "+data.name+" - Floor: "+data.floor+" - Seats: "+data.seats+
                     " - Type: "+data.type+" - Desk Type: "+data.desk_type+" - Exits: "+data.exits+
                     " - Board Type: "+data.board_type+" - Coat Hangers: "+data.coat_hangers+
@@ -59,12 +53,12 @@ module.exports = function(app, request, express){
                         var i=0;
                         var comms=data.comments;
                         for (i=0;i<comms.length;i++) {
-                            console.log(comms[i]);
+                            console.log("[classroom.js] "+comms[i]);
                         }
 
                         // RETRIEVE PHOTO FROM FLICKR
                         var tag=edificio+numero+"";
-                        console.log(tag);
+                        console.log("[classroom.js] "+tag);
                         Flickr.tokenOnly(flickrOptions, function(error, flickr) {
                             flickr.photos.search({
                               user_id: flickr.options.user_id,
@@ -74,19 +68,11 @@ module.exports = function(app, request, express){
                             }, function(err, result) {
                               var ph_number=result.photos.total;
                               if (ph_number>10) ph_number=10;
-                              console.log("Photos found: "+ph_number);
+                              console.log("[classroom.js] Photos found: "+ph_number);
                               for (var i=0; i<ph_number; i++) {
                                 var ph=result.photos.photo[i];
                                 var link="https://farm"+ph.farm+".staticflickr.com/"+ph.server+"/"+ph.id+"_"+ph.secret+".jpg";
                                 links.push(link);
-                                optionsDown.url=link;
-                                optionsDown.dest=__dirname+'/photo/'+ph.id+'.jpg';
-                                download.image(optionsDown)
-                                    .then(({ filename, image }) => {
-                                        console.log('File saved to', filename)
-                                    }).catch((err) => {
-                                        throw err
-                                    })
                               }
                               res.render('./pages/classroom.ejs', {
                                   edif: edificio,
@@ -101,11 +87,11 @@ module.exports = function(app, request, express){
                           });
                         });
                     }, err =>{
-                        console.log(err);
+                        console.log("[classroom.js] "+err);
                         res.redirect("/edificio?edificio="+edificio);
                     });
             }, err => {
-                console.log(err);
+                console.log("[classroom.js] "+err);
                 res.redirect("/edificio?edificio="+edificio);
             });
     });
@@ -115,12 +101,12 @@ module.exports = function(app, request, express){
             conn.createChannel(function(err, ch) {
                 var ex = 'direct_logs';
                 var msg = req.body.comment;
-                console.log(msg);
+                console.log("[classroom.js] "+msg);
                 var severity =edificio.toString()+";"+numero.toString();
 
                 ch.assertExchange(ex, 'direct', {durable: false});
                 ch.publish(ex, severity, new Buffer(msg));
-                console.log("Sent "+msg+" on queue with routing key: "+severity);
+                console.log("[classroom.js] Sent "+msg+" on queue with routing key: "+severity);
                 res.redirect("/aula?edificio="+edificio+"&aula="+numero);
             });
         });

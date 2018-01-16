@@ -7,7 +7,7 @@ module.exports = function(app, express){
   const url_weather = "http://api.openweathermap.org/data/2.5/weather";
   const city = "Roma";
   const state = "IT"
-  const appid = "bc1ddf2e6211920bf9d7988a7d67348f"
+  const appid = "APP_ID"
 
   const meteo = {
       url: url_weather + "?q=" + city + "," + state + "&appid=" + appid //meteo's url
@@ -53,5 +53,3 @@ function send_page(couchdb_buildings, request, req, res, meteo){
     });
 
   }
-
-

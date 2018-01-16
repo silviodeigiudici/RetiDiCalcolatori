@@ -30,11 +30,11 @@ var search=function(username,done){
         return done(true,usr.docs[0])
       } else {
         // the rersult is empty so the aren't user with the specified username
-        console.log("user doesn't exists");
+        console.log("[user.js] user doesn't exists");
         return done(false,null);
       }
     }else {
-      console.log(error);
+      console.log("[user.js] "+error);
       return done(false,null);
     }
   });
@@ -60,7 +60,7 @@ var create=function(usr,done){
   // get and id for the document
   get_new_id(function(result,id){
     if(result==false){
-      console.log("failed to get an id");
+      console.log("[user.js] failed to get an id");
       return done(false);
     }
     //make a request to the database to save the user
@@ -79,21 +79,21 @@ var create=function(usr,done){
           method:'GET'
         },function(error,response,body){
           if(!error && response.statusCode==200 && (usr.local!=undefined || usr.google != undefined)){
-            console.log("created the user");
+            console.log("[user.js] created the user");
             if(usr.local != undefined ){
             sendMail(usr.local.username,usr.local.email,id);}
             done(true,JSON.parse(body));
           }else {
-            console.log(error);
+            console.log("[user.js] "+error);
             done(false,null);
           }
         });
       } else{
           if(!error && response.statusCode==409){
-            console.log("existing user");
+            console.log("[user.js] existing user");
             return done(false,null);
           } else {
-            console.log("response on creation:"+response.statusCode);
+            console.log("[user.js] response on creation:"+response.statusCode);
             return done(false,null);
         }
       }
@@ -120,7 +120,7 @@ function get_new_id(done){
     if(!error && response.statusCode==200){
      done(true,JSON.parse(body).uuids[0]);
     }else {
-      console.log(error);
+      console.log("[user.js] "+error);
       done(false,null);
     }
   });
@@ -136,14 +136,14 @@ function sendMail(username,email,id){
     var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'advisor.classroom@gmail.com',
-        pass: 'classroomadvisorRC2017'
+        user: 'USER',
+        pass: 'PASSWORD'
     }
     });
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
-            console.log(error);}
+            console.log("[user.js] "+error);}
         console.log('Email verification sent');});
 
 }

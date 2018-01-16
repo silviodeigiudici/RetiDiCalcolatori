@@ -5,7 +5,7 @@ function check_connection(ws, req, client_ip){
 
   console.log("Client at " + client_ip + " is now connect");
   if(req.isAuthenticated()){ //if it's authenticated get username
-    console.log("Client authenticated");
+    console.log("[websocket_functions.js] Client authenticated");
     if(req.user.local){
       username = req.user.local.username; //user is logged with local passport
     }
@@ -14,7 +14,7 @@ function check_connection(ws, req, client_ip){
     }
   }
   else { //otherwise connection is closed
-    console.log("Client not authenticated, closing connection...");
+    console.log("[websocket_functions.js] Client not authenticated, closing connection...");
     ws.close();
   }
 
@@ -25,7 +25,7 @@ function check_connection(ws, req, client_ip){
 function close_ws(wss, id){ //close clients with an specific connection's id
   wss.clients.forEach( (client) => { //client has id of passport session
     if(client.upgradeReq.user._id == id){
-      console.log("Client logout, closing connection...");
+      console.log("[websocket_functions.js] Client logout, closing connection...");
       client.close();
     }
   });

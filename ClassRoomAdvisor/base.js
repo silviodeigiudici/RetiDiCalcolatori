@@ -29,7 +29,7 @@ var expressWs = require('express-ws')(app); //use for web socket, needs it becau
 var wss = expressWs.getWss('/edifici'); //get web socket server
 
 app.listen(port); //need to listen app after setting up web socket
-console.log('Up on port:' + port);
+console.log('[base.js] Up on port:' + port);
 
 //linking node modules
 require('./routes.js')(app,passport, wss); //routes for the application

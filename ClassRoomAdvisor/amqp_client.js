@@ -31,7 +31,7 @@ module.exports = function(id_user){
             ch.assertExchange(ex, 'direct', {durable: false});
 
             ch.assertQueue('', {exclusive: true}, function(err, q) {
-                console.log(' [*] Waiting for logs. To exit press CTRL+C');
+                console.log('[amqp_client.js] [*] Waiting for logs. To exit press CTRL+C');
 
                 keys.forEach(function(severity) {
                     ch.bindQueue(q.queue, ex, severity);
@@ -40,7 +40,7 @@ module.exports = function(id_user){
                 ch.consume(q.queue, function(msg) {
                     var today=new Date();
                     var m=today.getMonth()+1;
-                    console.log("["+msg.fields.routingKey+"]: "+msg.content.toString());
+                    console.log("[amqp_client.js] ["+msg.fields.routingKey+"]: "+msg.content.toString());
                     var key=msg.fields.routingKey.split(";");
                     var db=key[0];
                     var cr_num=key[1];
@@ -60,7 +60,7 @@ module.exports = function(id_user){
                         comm.push(comment);
                         updateComment(db,data,comm);
                     }, err => {
-                        console.log(err);
+                        console.log("[amqp_client.js] "+err);
                     });
                 }, {noAck: true});
             });

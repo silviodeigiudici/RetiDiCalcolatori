@@ -12,7 +12,7 @@ const User=require('./user');
 module.exports = function(passport){
 //serialize an user to authenticate its sessions
   passport.serializeUser(function(user,done){
-    console.log("serialized user: "+user._id);
+    console.log("[passport.js] serialized user: "+user._id);
     done(null,user._id);
   });
 
@@ -20,11 +20,11 @@ module.exports = function(passport){
   passport.deserializeUser(function(id, done) {
     User.get(id,function(found,user){
       if(found){
-        console.log("deserialized! :"+user._id);
+        console.log("[passport.js] deserialized! :"+user._id);
         done(null,user);
       } else{
         done(null,false);
-        console.log("failed to deserialize user "+id);
+        console.log("[passport.js] failed to deserialize user "+id);
       }
     });
   });
@@ -34,7 +34,7 @@ module.exports = function(passport){
     //ensure there are only valid values
     var email = req.body.email;
       if(typeof password=='undefined'||typeof username=='undefined' || typeof email == 'undefined'){
-        console.log("invalid fields");
+        console.log("[passport.js] invalid fields");
         return done(null,false,req.flash('signupMessage','missing username or password!') );
     }
     var number = Math.floor(Math.random() * 100000000000);
@@ -47,7 +47,7 @@ module.exports = function(passport){
       } else{
         User.create(usr,function(result,user){
           if(result){
-            console.log("redirecting to profile");
+            console.log("[passport.js] redirecting to profile");
             return done(null,user);
           }
           return done(null,false,req.flash('signupMessage','server error, failed to create the user!'));
@@ -60,7 +60,7 @@ module.exports = function(passport){
   passport.use("login", new Local_Strategy( {passReqToCallback : true},function(req, username, password, done){
       //ensure there are only valid values
       if(typeof password=='undefined' || typeof username=='undefined'){
-        console.log("invalid fields");
+        console.log("[passport.js] invalid fields");
         return done(null,false,req.flash('loginMessage','missing username or password!') );
       }
       //make a request to the database to get the userdata
@@ -100,7 +100,7 @@ module.exports = function(passport){
           if(result){
             return done(null,user);
           }
-          console.log("failed to save google account");
+          console.log("[passport.js] failed to save google account");
           return done(null,false);
         })
       }
@@ -108,9 +108,3 @@ module.exports = function(passport){
   }));
 
 };
-
-
-
-
-
-

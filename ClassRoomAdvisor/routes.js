@@ -35,7 +35,7 @@ const WSfunctions = require('./websocket_functions.js');
 
   // account profile, available only if the user has already logged
   app.get('/profile', isLoggedIn, function(req, res) {
-    console.log("rendering profile view");
+    console.log("[routes.js] rendering profile view");
     res.render('profile.ejs', {user:req.user});
   });
 
@@ -74,7 +74,7 @@ const WSfunctions = require('./websocket_functions.js');
    }
         }).then(({data, headers, status}) => {
 }, err => {
-    console.log(err);
+    console.log("[routes.js] "+err);
     });
 
 	res.render('registered.ejs',{page : "http://localhost:8080/login"});
@@ -93,12 +93,12 @@ function isLoggedIn(req,res,next){
   if(req.isAuthenticated()){
     if(req.user.local!=undefined){
         if(req.user.local.IsConfirmed == true){
-        console.log("user logged");
+        console.log("[routes.js] user logged");
         return next(); // loads the page which was requested
         }
     }
     else if(req.user.google != undefined){
-        console.log("user logged with google");
+        console.log("[routes.js] user logged with google");
         return next(); // loads the page which was requested
     }
     else{
