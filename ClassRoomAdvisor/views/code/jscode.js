@@ -1,11 +1,12 @@
 //PLACES FUNCTIONS
 function startServices(){
 	//using places to find all restaurants
+ //using places to find all restaurants
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: buildinglatlng,
           radius: 480,
-          type: ['restaurant']    //Type of Search
+          type: ['restaurant']    //Searching
         }, callback);
 
         //using places to find all bars
@@ -13,17 +14,40 @@ function startServices(){
         service.nearbySearch({
           location: buildinglatlng,
           radius: 480,
-          type: ['bar']
-        }, callbackB);
+          type: ['bar']      //Searching
+        }, callback);
 
 
-        //using places to find all Points of Interests
+        //using places to find all libraries
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: buildinglatlng,
           radius: 480,
-          type: ['library']  || ['art_gallery'] || ['museum'] || ['church']  //Multi-Search
-         }, callbackA);
+          type: ['library'] //Searching
+         }, callback);
+        //using places to find all art galleries
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: buildinglatlng,
+          radius: 480,
+          type: ['art_gallery'] //Searching
+         }, callback);
+
+        //using places to find all museums
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: buildinglatlng,
+          radius: 480,
+          type: ['museum']//Searching
+         }, callback);
+                 //using places to find all churches
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: buildinglatlng,
+          radius: 480,
+          type: ['church']  //Searching
+         }, callback);
+
 }
 
 
@@ -37,26 +61,11 @@ function startServices(){
         }
       }
 
-      function callbackA(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarkerIP(results[i]);
-          }
-        }
-      }
-      function callbackB(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarkerBars(results[i]);
-          }
-        }
-      }
-
       //Create markers for all findings for for Bars
       function createMarker(place) {
         var marker = new google.maps.Marker({
           icon : {  //changing the marker,resizing it
-            url: 'https://maps.google.com/mapfiles/kml/shapes/dining.png',
+            url: place.icon,
             scaledSize: new google.maps.Size(30, 30), // scaled size
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(0, 0)
@@ -66,49 +75,12 @@ function startServices(){
         });
         infowindow = new google.maps.InfoWindow();
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
+          infowindow.setContent(place.name+","+place.vicinity);
           infowindow.open(map, this);
         });
       }
 
-
-       //Create markers for all findings for for Bars
-      function createMarkerBars(place) {
-        var marker = new google.maps.Marker({
-          icon : {  //changing the marker,resizing it
-            url: 'http://maps.google.com/mapfiles/kml/shapes/bars.png',
-            scaledSize: new google.maps.Size(20, 20), // scaled size
-            origin: new google.maps.Point(0,0),
-            anchor: new google.maps.Point(0, 0)
-        },
-          position: place.geometry.location,
-          map: map
-        });
-        infowindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-    }
-       //Create markers for all findings for Point of interest
-      function createMarkerIP(place) {
-        var marker = new google.maps.Marker({
-          icon : {  //changing the marker,resizing it
-            url: 'http://maps.google.com/mapfiles/kml/shapes/arts.png',
-            scaledSize: new google.maps.Size(30, 30), // scaled size
-            origin: new google.maps.Point(0,0),
-            anchor: new google.maps.Point(0, 0)
-        },
-          position: place.geometry.location,
-          map: map
-        });
-        infowindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-    }
-
+    
 
 //GEOLOCATION FUNCTIONS
 //Here() will locate the user and pin a marker on his current location
