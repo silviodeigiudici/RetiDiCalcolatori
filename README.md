@@ -3,7 +3,7 @@ Progetto di Reti di Calcolatori, è un applicazione web che fornisce informazion
 
 ##### TODO
 1. [x] Definire struttura database e insieme dei dati di interesse
-2. [ ] Login usando Google SignIn e in locale
+2. [ ] Login usando Google SignIn e in locale (registrazione via mail)
 3. [ ] Informazioni sull' edificio, luoghi nei dintorni e meteo
 4. [ ] Indicazioni per come raggiungere l'edificio
 5. [x] Chat globale
