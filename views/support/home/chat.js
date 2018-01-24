@@ -1,6 +1,6 @@
 const port = 8080;
 const ip = "localhost";
-const url = "ws://" + ip + ":" + port + "/edifici";
+const url = "ws://" + ip + ":" + port + "/home";
 
 const websocket = new WebSocket(url);
 const textarea = document.getElementById('messarea');

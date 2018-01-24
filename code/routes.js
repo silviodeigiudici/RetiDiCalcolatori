@@ -1,12 +1,11 @@
-module.exports= function(app,passport, wss) {
-const NodeCouchDb = require('node-couchdb');
-const couch = new NodeCouchDb();
 const WSfunctions = require('./websocket_functions.js');
+const Weather=require("./weather.js")
 
+module.exports= function(app,passport, wss,couch,request,express) {
 
-  // render home page
+  // render index page
   app.get('/', function (req,res){
-    res.render('home.ejs');
+    res.render('index.ejs');
   });
 
   // render login page
@@ -80,8 +79,14 @@ const WSfunctions = require('./websocket_functions.js');
 	res.render('registered.ejs',{page : "http://localhost:8080/login"});
   },err => {
     res.render('registered.ejs',{page : 'http://localhost:8080/signup'});
+  });
 });
-});
+
+//getting the home page
+app.get('/home',isLoggedIn, (req, res) => {
+  app.use(express.static('../views/support/home')); //to load chat script and css
+    Weather.send_page(request, req, res);
+  });
 
 }
 

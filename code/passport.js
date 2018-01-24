@@ -3,7 +3,7 @@ const Local_Strategy =require('passport-local').Strategy;
 //passport strategy for google oauth login
 const Google_Strategy = require('passport-google-oauth20').Strategy;
 //data needed to call google api
-const OAuth_data=require('./OAuth_Secret');
+const OAuth_data=require('../secrets/OAuth_Secret');
 //user handler module
 const User=require('./user');
 

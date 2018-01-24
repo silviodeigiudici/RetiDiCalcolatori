@@ -1,14 +1,15 @@
 //getting the required modules
 
-var express=require("express");
-var port =process.env.PORT || 8080
-var passport= require('passport');
-var cookieParser= require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-var flash= require('connect-flash');
-
-
+const express=require("express");
+const port =process.env.PORT || 8080
+const passport= require('passport');
+const cookieParser= require('cookie-parser');
+const bodyParser= require('body-parser');
+const session= require('express-session');
+const flash= require('connect-flash');
+const NodeCouchDb = require('node-couchdb');
+const couch = new NodeCouchDb();
+const request = require('request');
 
 //linking middleware to application
 var app=express(); //starting express
@@ -26,16 +27,16 @@ app.use(flash()) // support flash messages
 
 
 var expressWs = require('express-ws')(app); //use for web socket, needs it because module ws work on with http module
-var wss = expressWs.getWss('/edifici'); //get web socket server
+var wss = expressWs.getWss('/home'); //get web socket server
 
 app.listen(port); //need to listen app after setting up web socket
 console.log('[base.js] Up on port:' + port);
 
 //linking node modules
-require('./routes.js')(app,passport, wss); //routes for the application
-require('./passport.js')(passport); // passport configuration for local authetication
+require('./code/routes.js')(app,passport,wss,couch,request,express); //routes for the application
+require('./code/passport.js')(passport); // passport configuration for local authetication
 
-require('./websocket.js')(app, wss); //open seb socket server
-require('./edifici.js')(app, express); //routes to edifici
-require('./buildings.js')(app,express);
-require('./classroom.js')(app,express);
+require('./code/websocket.js')(app, wss); //open seb socket server
+//require('./code/weather.js')(app, express); //routes to edifici
+require('./code/buildings.js')(app,express);
+require('./code/classroom.js')(app,express);

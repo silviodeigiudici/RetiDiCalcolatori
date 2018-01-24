@@ -3,8 +3,8 @@ module.exports = function(app, wss){
   const WSfunctions = require('./websocket_functions.js'); //get functions
 
 
-  app.ws('/edifici', (ws, req) => { //handling a new open connection
-
+  app.ws('/home', (ws, req) => { //handling a new open connection
+    console.log("client connected");
     var username = undefined;
     const client_ip = req.connection.remoteAddress;
 

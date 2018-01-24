@@ -1,8 +1,9 @@
 const request=require('request');
+const nodemailer = require('nodemailer'); // used to send mails
 const bcrypt=require("bcrypt-nodejs"); // module which handles the encryption of the password
 const host='http://127.0.0.1:5984';
 const db=host+"/users";
-const nodemailer = require('nodemailer');
+
 // search for a user given the username
 var search=function(username,done){
   // the selector object adds to the resulting query all the documents maching its elements
