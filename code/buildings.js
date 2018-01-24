@@ -39,10 +39,9 @@ app.get("/edificio",routes.isLoggedIn,(req,res) => {
             res.render('edificio.ejs', {building :building,build_name :build_name ,address : address,lat : lat, lon : lon,classes:classes,num_classes :classes.length,rooms : rooms,
         shops : shops, vending_machines:vending_machines,drinking_fountains:drinking_fountains,study_rooms:study_rooms,libraries:libraries,wifi:wifi});
       }, err => {
-          res.redirect('/edifici');
+          res.redirect('/home');
       });
 
 });
 
 }
-

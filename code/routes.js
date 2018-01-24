@@ -84,7 +84,7 @@ module.exports= function(app,passport, wss,couch,request,express) {
 
 //getting the home page
 app.get('/home',isLoggedIn, (req, res) => {
-  app.use(express.static('../views/support/home')); //to load chat script and css
+  app.use(express.static('./views/support/home')); //to load chat script and css
     Weather.send_page(request, req, res);
   });
 
