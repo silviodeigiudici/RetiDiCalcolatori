@@ -57,13 +57,13 @@
   * DELETE:
 
 * ### `/aula?edificio=X&aula=Y`
-  * **GET**: show information about classroom Y in the building X and enable amqp client to receive comments
+  * **GET**: show information about classroom Y in the building X
   * POST:
   * PUT:
   * DELETE:
 
 *  ### `/aula`
   * GET:
-  * **POST**: use amqp to send comment to amqp client with routing key [building;classroom_number]
+  * **POST**: use amqp to send comment to amqp client with topic [building.classroom_number.user]
   * PUT:
   * DELETE:
