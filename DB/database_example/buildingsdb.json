@@ -14,6 +14,7 @@
   "vending_machines": [
     "first floor, near entrance"
   ],
+  "rooms_number": 30,
   "rooms": [
     "B2"
   ],
