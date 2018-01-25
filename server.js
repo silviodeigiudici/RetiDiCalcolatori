@@ -10,6 +10,10 @@ const flash= require('connect-flash');
 const NodeCouchDb = require('node-couchdb');
 const couch = new NodeCouchDb();
 const request = require('request');
+//node module amqp (we use topics based queue)
+const amqp = require('amqplib/callback_api');
+//call flickr API
+const Flickr=require('flickrapi');
 
 //linking middleware to application
 var app=express(); //starting express
@@ -33,7 +37,6 @@ app.listen(port); //need to listen app after setting up web socket
 console.log('[base.js] Up on port:' + port);
 
 //linking node modules
-require('./code/routes.js')(app,passport,wss,couch,request,express); //routes for the application
+require('./code/routes.js')(app,passport,wss,couch,request,express,amqp,Flickr); //routes for the application
 require('./code/passport.js')(passport); // passport configuration for local authetication
 require('./code/websocket.js')(app, wss); //open seb socket server
-require('./code/classroom.js')(app,express);

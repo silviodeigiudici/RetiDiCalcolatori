@@ -1,8 +1,9 @@
 const WSfunctions = require('./websocket_functions.js');
-const Weather=require("./weather.js")
-const Buildings=require("./buildings.js")
+const Weather=require("./weather.js");
+const Buildings=require("./buildings.js");
+const Classrooms=require("./classroom.js");
 
-module.exports= function(app,passport, wss,couch,request,express) {
+module.exports= function(app,passport, wss,couch,request,express,amqp,Flickr) {
 
   // render index page
   app.get('/', function (req,res){
@@ -95,6 +96,15 @@ app.get('/home',isLoggedIn, (req, res) => {
     Buildings.send_page(req,res,couch,request);
   }, err => {
       res.redirect('/home');
+  });
+
+  //getting classroom page
+  app.get("/aula",isLoggedIn,function(req,res){
+    Classrooms.send_page(req,res,couch,Flickr);
+  });
+  //add a comment
+  app.post("/aula",function(req,res){
+    Classrooms.send_comment(req,res,amqp);
   });
 
 }

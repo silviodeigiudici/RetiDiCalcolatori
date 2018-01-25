@@ -28,13 +28,39 @@
         <h1>Classroom <%=number%> </h1>
 
         <h2>Info:</h2>
-        <p><%= infos %></p>
+        <table style="width:50%">
+          <tr>
+            <td>Name: <%=infos.name%></td>
+            <td>Floor: <%=infos.floor%></td>
+            <td>Seats: <%=infos.seats%></td>
+          </tr>
+          <tr>
+            <td>Type: <%=infos.type%></td>
+            <td>Desk Type: <%=infos.desk_type%></td>
+            <td>Exits: <%=infos.exits%></td>
+          </tr>
+          <tr>
+            <td>Board Type: <%=infos.board_type%></td>
+            <td>Coat Hangers: <%=infos.coat_hangers%></td>
+            <td>Projectors: <%=infos.projector%></td>
+          </tr>
+          <tr>
+            <td>Mic: <%=infos.mic%></td>
+            <td>Wi-Fi Signal: <%=infos.wi_fi%></td>
+          </tr>
+        </table>
 
         <h2>Comments:</h2>
-        <p><%=JSON.stringify(comments)%></p>
+        <p>
+          <%
+          for(var i=0;i<comm_length;i++){%>
+          <%=comments[i].comment%><br>
+          From: <%=comments[i].user%> | Date: <%=comments[i].date%>:<%=comments[i].hour%><br><br>
+          <%}%>
+      </p>
 
         <form action="/aula" method="POST" >
-            Comment: <input type="text" name="comment" value="Write your comment here"><br>
+            Comment: <input type="text" name="comment" placeholder="Write your comment here"><br>
             <input type="submit" value="Send" >
         </form>
 
