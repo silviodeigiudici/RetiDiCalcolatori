@@ -31,7 +31,7 @@ module.exports = function(){
             ch.assertExchange(ex, 'topic', {durable: false});
 
             ch.assertQueue('', {exclusive: true}, function(err, q) {
-                console.log('[amqp_client.js] [*] Waiting for logs. To exit press CTRL+C');
+                console.log('[amqp_client.js] Waiting for comments');
 
                 keys.forEach(function(severity) {
                     ch.bindQueue(q.queue, ex, severity);
@@ -44,8 +44,8 @@ module.exports = function(){
                     var key=msg.fields.routingKey.split(".");
                     var db=key[0];
                     var cr_num=key[1];
+                    var user=key[2];
                     var id="cr"+cr_num+"comments";
-                    var rev="";
                     couch.get(db,id).then(({data, headers, status}) => {
                         if (startup_flag) {
                             comm=data.comments;
@@ -54,7 +54,7 @@ module.exports = function(){
                         var comment={
                                     "date": today.getDay()+"/"+m+"/"+today.getFullYear(),
                                     "hour": today.getHours()+":"+today.getMinutes()+";",
-                                    "user": key[2],
+                                    "user": user,
                                     "comment": msg.content.toString()
                                     }
                         comm.push(comment);

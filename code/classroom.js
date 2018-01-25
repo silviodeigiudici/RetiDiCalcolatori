@@ -5,13 +5,6 @@ var numero="";
 const flickrOptions=require("./Secrets").flickr;
 
 var send_page=function(req,res,couch,Flickr) {
-  var id_user;
-  if(req.user.local) {
-    id_user = req.user.local.username; //user is logged with local passport
-  }
-  else {
-    id_user = req.user.google.name; //user is logged with oauth
-  }
   edificio=req.query.edificio;
   numero=req.query.aula;
   // RETRIEVE CLASSROOM INFO
@@ -66,20 +59,19 @@ var send_comment= function(req,res,amqp) {
       var ex = 'topic_logs';
       var msg = req.body.comment;
       var username;
-      if(req.isAuthenticated()){ //if it's authenticated get username
-        console.log("[websocket_functions.js] Client authenticated");
+      if(req.isAuthenticated()){
         if(req.user.local){
-          username = req.user.local.username; //user is logged with local passport
+          username = req.user.local.username;
         }
         else {
-          username = req.user.google.name; //user is logged with oauth
+          username = req.user.google.name;
         }
       }
       var severity =edificio.toString()+"."+numero.toString()+"."+username;
 
       ch.assertExchange(ex, 'topic', {durable: false});
       ch.publish(ex, severity, new Buffer(msg));
-      console.log("[classroom.js] Sent "+msg+" on queue with routing key: "+severity);
+      console.log("[classroom.js] Sent "+msg+" on queue with topic: "+severity);
       res.redirect("/aula?edificio="+edificio+"&aula="+numero);
     });
   });
