@@ -6,6 +6,7 @@ l'applicazione richiede i seguenti servizi:
 * couchdb 2 all'indirizzo localhost:5984
 * rabbitmq all'indirizzo localhost:5672
 * un browser che supporta l'utilizzo di websocket
+* nodejs per eseguire l'applicazione
 
 In particolare in couchdb devono essere presenti i seguenti database:
 * users, per memorizzare gli utenti
