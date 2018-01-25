@@ -1,5 +1,5 @@
 // module to use couchdb database
-module.exports = function(id_user){
+module.exports = function(){
     const NodeCouchDb = require('node-couchdb');
     const couch = new NodeCouchDb();
 
@@ -10,7 +10,7 @@ module.exports = function(id_user){
 
     // array that stores comments
     var comms = [];
-    var keys=["spv;24","spv;11","spv;40","diag;B2"];
+    var keys=["spv.24.*","spv.11.*","spv.40.*","diag.B2.*"];
 
     function updateComment(db,data,comment) {
         couch.update(db, {
@@ -26,9 +26,9 @@ module.exports = function(id_user){
 
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
-            var ex = 'direct_logs';
+            var ex = 'topic_logs';
 
-            ch.assertExchange(ex, 'direct', {durable: false});
+            ch.assertExchange(ex, 'topic', {durable: false});
 
             ch.assertQueue('', {exclusive: true}, function(err, q) {
                 console.log('[amqp_client.js] [*] Waiting for logs. To exit press CTRL+C');
@@ -40,8 +40,8 @@ module.exports = function(id_user){
                 ch.consume(q.queue, function(msg) {
                     var today=new Date();
                     var m=today.getMonth()+1;
-                    console.log("[amqp_client.js] ["+msg.fields.routingKey+"]: "+msg.content.toString());
-                    var key=msg.fields.routingKey.split(";");
+                    console.log("[amqp_client.js] received ["+msg.fields.routingKey+"]: "+msg.content.toString());
+                    var key=msg.fields.routingKey.split(".");
                     var db=key[0];
                     var cr_num=key[1];
                     var id="cr"+cr_num+"comments";
@@ -54,7 +54,7 @@ module.exports = function(id_user){
                         var comment={
                                     "date": today.getDay()+"/"+m+"/"+today.getFullYear(),
                                     "hour": today.getHours()+":"+today.getMinutes()+";",
-                                    "user": id_user,
+                                    "user": key[2],
                                     "comment": msg.content.toString()
                                     }
                         comm.push(comment);

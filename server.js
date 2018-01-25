@@ -40,3 +40,5 @@ console.log('[base.js] Up on port:' + port);
 require('./code/routes.js')(app,passport,wss,couch,request,express,amqp,Flickr); //routes for the application
 require('./code/passport.js')(passport); // passport configuration for local authetication
 require('./code/websocket.js')(app, wss); //open seb socket server
+
+require('./code/amqp_client.js')();

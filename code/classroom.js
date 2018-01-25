@@ -12,25 +12,17 @@ var send_page=function(req,res,couch,Flickr) {
   else {
     id_user = req.user.google.name; //user is logged with oauth
   }
-  require('./amqp_client.js')(id_user);
   edificio=req.query.edificio;
   numero=req.query.aula;
   // RETRIEVE CLASSROOM INFO
   couch.get(edificio,"cr"+numero).then(({data, headers, status}) => {
-    // data is json response
-    console.log("[classroom.js] "+data);
-    info=data;
     //RETRIEVE COMMENTS
 
     couch.get(edificio,"cr"+numero+"comments").then(({data, headers, status}) => {
       var i=0;
       var comms=data.comments;
-      for (i=0;i<comms.length;i++) {
-        console.log("[classroom.js] "+comms[i]);
-      }
       // RETRIEVE PHOTO FROM FLICKR
       var tag=edificio+numero+"";
-      console.log("[classroom.js] "+tag);
       Flickr.tokenOnly(flickrOptions, function(error, flickr) {
         flickr.photos.search({
           user_id: flickr.options.user_id,
@@ -71,12 +63,21 @@ var send_page=function(req,res,couch,Flickr) {
 var send_comment= function(req,res,amqp) {
   amqp.connect('amqp://localhost', function(err, conn) {
     conn.createChannel(function(err, ch) {
-      var ex = 'direct_logs';
+      var ex = 'topic_logs';
       var msg = req.body.comment;
-      console.log("[classroom.js] "+msg);
-      var severity =edificio.toString()+";"+numero.toString();
+      var username;
+      if(req.isAuthenticated()){ //if it's authenticated get username
+        console.log("[websocket_functions.js] Client authenticated");
+        if(req.user.local){
+          username = req.user.local.username; //user is logged with local passport
+        }
+        else {
+          username = req.user.google.name; //user is logged with oauth
+        }
+      }
+      var severity =edificio.toString()+"."+numero.toString()+"."+username;
 
-      ch.assertExchange(ex, 'direct', {durable: false});
+      ch.assertExchange(ex, 'topic', {durable: false});
       ch.publish(ex, severity, new Buffer(msg));
       console.log("[classroom.js] Sent "+msg+" on queue with routing key: "+severity);
       res.redirect("/aula?edificio="+edificio+"&aula="+numero);

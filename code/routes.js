@@ -125,7 +125,9 @@ function isLoggedIn(req,res,next){
     else{
         res.redirect('/'); // redirects
     }
-    }
+  } else {
+    res.redirect('/');
+  }
 }
 
 module.exports.isLoggedIn=isLoggedIn;
