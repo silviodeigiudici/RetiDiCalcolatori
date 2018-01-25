@@ -1,0 +1,35 @@
+{
+  "_id": "spv",
+  "name": "Università degli Studi di Roma La Sapienza - Dipartimento di Ingegneria Meccanica e Aerospaziale",
+  "addresses": {
+    "address": "Via Eudossiana",
+    "house_number": 18,
+    "postal_code": "00185",
+    "city": "Rome",
+    "lat": "41.8933685",
+    "long": "12.493091"
+  },
+  "rooms_number":41,
+  "rooms": [
+    "11",
+    "24",
+    "40"
+  ],
+  "shops": [
+    {
+      "name": "Spaccio",
+      "location": "north (near classroom 33)"
+    }
+  ],
+  "vending_machines": [
+    "outside classroom 33"
+  ],
+  "drinking_fountains": [
+    "outside spaccio"
+  ],
+  "libraries": [
+    "first floor near classroom 8"
+  ],
+  "study_rooms": [],
+  "wi_fi": "yes"
+}

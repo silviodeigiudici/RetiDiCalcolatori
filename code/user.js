@@ -1,6 +1,7 @@
 const request=require('request');
 const nodemailer = require('nodemailer'); // used to send mails
 const bcrypt=require("bcrypt-nodejs"); // module which handles the encryption of the password
+const Key=require("./Secrets")
 const host='http://127.0.0.1:5984';
 const db=host+"/users";
 
@@ -23,7 +24,6 @@ var search=function(username,done){
   },
   body: JSON.stringify(query)
   },function (error,response,body){
-      //console.log("Codice: " + response.statusCode);
     if(!error && response.statusCode==200){
       var usr=JSON.parse(body);
       // if the result isn't empty return it
@@ -48,7 +48,6 @@ var get=function(id,done){
     method:'GET'
   },function(error,response,body){
     if(!error && response.statusCode==200){
-      console.log(body);
      done(true,JSON.parse(body));
     }else {
       done(false,null);
@@ -94,7 +93,6 @@ var create=function(usr,done){
             console.log("[user.js] existing user");
             return done(false,null);
           } else {
-            console.log("[user.js] response on creation:"+response.statusCode);
             return done(false,null);
         }
       }
@@ -137,8 +135,8 @@ function sendMail(username,email,id){
     var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'USER',
-        pass: 'PASSWORD'
+        user: Key.mail.gmail.user,
+        pass: Key.mail.gmail.password
     }
     });
     // send mail with defined transport object

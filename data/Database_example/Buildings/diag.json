@@ -1,0 +1,26 @@
+{
+  "_id": "diag",
+  "name": "Dipartimento di Ingegneria Informatica Automatica e Gestionale \"Antonio Ruberti\"",
+  "addresses": {
+    "address": "Via Ariosto",
+    "house_number": 25,
+    "postal_code": "00185",
+    "city": "Rome",
+    "lat": "41.8910001",
+    "long": "12.5036217"
+  },
+  "shops": [],
+  "vending_machines": [
+    "first floor, near entrance"
+  ],
+  "rooms_number":30,
+  "rooms": [
+    "B2"
+  ],
+  "libraries": [
+    "first floor, beyond classroom B2"
+  ],
+  "wi_fi": "yes",
+  "drinking_fountains": [],
+  "study_rooms": []
+}

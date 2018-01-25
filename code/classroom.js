@@ -6,7 +6,7 @@ module.exports = function(app, request, express){
     const couch = new NodeCouchDb();
 
     couch.listDatabases().then(function(dbs) {
-        console.log("[classroom.js] "+dbs);
+        console.log("[classroom.js] buildings list:"+dbs);
     });
 
     //node module amqp (we use topics based queue)

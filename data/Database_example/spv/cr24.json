@@ -1,0 +1,17 @@
+{
+  "_id": "cr24",
+  "name": 24,
+  "number": 24,
+  "floor": "2nd",
+  "seats": 140,
+  "desk_type": "standard",
+  "board_type": "marking pen",
+  "projector": "yes",
+  "mic": "yes",
+  "coat_hangers": "yes",
+  "sockets_number": 4,
+  "exits": 2,
+  "back_entrance": "no",
+  "type": "classroom",
+  "wi_fi": "medium"
+}

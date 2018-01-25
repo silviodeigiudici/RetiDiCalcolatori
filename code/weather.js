@@ -4,7 +4,7 @@
   const url_weather = "http://api.openweathermap.org/data/2.5/weather";
   const city = "Roma";
   const state = "IT"
-  const appid = require('../secrets/Weather_Secret').openweathermap;
+  const appid = require('./Secrets').weather.openweathermap;
 
   const meteo = {
       url: url_weather + "?q=" + city + "," + state + "&appid=" + appid //meteo's url

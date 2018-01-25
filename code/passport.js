@@ -3,7 +3,7 @@ const Local_Strategy =require('passport-local').Strategy;
 //passport strategy for google oauth login
 const Google_Strategy = require('passport-google-oauth20').Strategy;
 //data needed to call google api
-const OAuth_data=require('../secrets/OAuth_Secret');
+const Key=require("./Secrets");
 //user handler module
 const User=require('./user');
 
@@ -12,7 +12,6 @@ const User=require('./user');
 module.exports = function(passport){
 //serialize an user to authenticate its sessions
   passport.serializeUser(function(user,done){
-    console.log("[passport.js] serialized user: "+user._id);
     done(null,user._id);
   });
 
@@ -20,7 +19,6 @@ module.exports = function(passport){
   passport.deserializeUser(function(id, done) {
     User.get(id,function(found,user){
       if(found){
-        console.log("[passport.js] deserialized! :"+user._id);
         done(null,user);
       } else{
         done(null,false);
@@ -37,7 +35,6 @@ module.exports = function(passport){
         console.log("[passport.js] invalid fields");
         return done(null,false,req.flash('signupMessage','missing username or password!') );
     }
-    var number = Math.floor(Math.random() * 100000000000);
     //check if the user doesn't already exist and create it
     var usr= {local:{ "username":username,"password":User.createhash(password),"email": email,"IsConfirmed": false}};
     User.search(username,function(found,user){
@@ -84,9 +81,9 @@ module.exports = function(passport){
 
   passport.use("google",new Google_Strategy({
         // app data to authenticate app on google authentication server
-        clientID        : OAuth_data.google.clientID,
-        clientSecret    : OAuth_data.google.clientSecret,
-        callbackURL     : OAuth_data.google.callbackURL,
+        clientID        : Key.oauth.google.clientID,
+        clientSecret    : Key.oauth.google.clientSecret,
+        callbackURL     : Key.oauth.google.callbackURL,
 
   },function(token,refresh,profile,done){
     var usr={ google:{ "name":profile.displayName,"token":token}}

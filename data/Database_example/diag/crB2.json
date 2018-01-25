@@ -1,0 +1,17 @@
+{
+  "_id": "crB2"
+  "name": "B2",
+  "number": "B2",
+  "floor": "1st",
+  "seats": 80,
+  "desk_type": "standard",
+  "board_type": "chalk",
+  "projector": "yes",
+  "mic": "yes",
+  "coat_hangers": "yes",
+  "sockets_number": 4,
+  "exits": 2,
+  "back_entrance": "no",
+  "type": "classroom",
+  "wi_fi": "high"
+}

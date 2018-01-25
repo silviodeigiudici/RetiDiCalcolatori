@@ -1,0 +1,18 @@
+
+{
+  "_id": "cr11",
+  "name": 11,
+  "number": 11,
+  "floor": "1st",
+  "seats": 80,
+  "desk_type": "standard",
+  "board_type": "chalk",
+  "projector": "yes",
+  "mic": "yes",
+  "coat_hangers": "yes",
+  "sockets_number": 4,
+  "exits": 3,
+  "back_entrance": "yes",
+  "type": "classroom",
+  "wi_fi": "high"
+}

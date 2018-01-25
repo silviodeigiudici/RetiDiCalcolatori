@@ -14,9 +14,9 @@ const request = require('request');
 //linking middleware to application
 var app=express(); //starting express
 app.use(cookieParser()); //read coockies
-app.use(bodyParser()); //read html forms
+app.use(bodyParser.urlencoded({extended:true})); //read html forms
 
-app.use(session({secret: 'ClassRoomAdvisor'}));
+app.use(session({secret: 'ClassRoomAdvisor',resave:false,saveUninitialized:false}));
 
 
 app.use(passport.initialize());
@@ -35,8 +35,5 @@ console.log('[base.js] Up on port:' + port);
 //linking node modules
 require('./code/routes.js')(app,passport,wss,couch,request,express); //routes for the application
 require('./code/passport.js')(passport); // passport configuration for local authetication
-
 require('./code/websocket.js')(app, wss); //open seb socket server
-//require('./code/weather.js')(app, express); //routes to edifici
-require('./code/buildings.js')(app,express);
 require('./code/classroom.js')(app,express);

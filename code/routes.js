@@ -1,5 +1,6 @@
 const WSfunctions = require('./websocket_functions.js');
 const Weather=require("./weather.js")
+const Buildings=require("./buildings.js")
 
 module.exports= function(app,passport, wss,couch,request,express) {
 
@@ -88,10 +89,15 @@ app.get('/home',isLoggedIn, (req, res) => {
     Weather.send_page(request, req, res);
   });
 
+  //getting building page
+  app.get("/edificio",isLoggedIn,(req,res)=>{
+    app.use(express.static('./views/support/building')); //to use files of web pages
+    Buildings.send_page(req,res,couch,request);
+  }, err => {
+      res.redirect('/home');
+  });
+
 }
-
-
-
 
 // callback which ensures hat the session is authenticated
 function isLoggedIn(req,res,next){
