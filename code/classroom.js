@@ -10,7 +10,7 @@ var send_page=function(req,res,couch,Flickr) {
   // RETRIEVE CLASSROOM INFO
   couch.get(edificio,"cr"+numero).then(({data, headers, status}) => {
     //RETRIEVE COMMENTS
-
+    info=data;
     couch.get(edificio,"cr"+numero+"comments").then(({data, headers, status}) => {
       var i=0;
       var comms=data.comments;
