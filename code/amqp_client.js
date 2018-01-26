@@ -47,10 +47,7 @@ module.exports = function(){
                     var user=key[2];
                     var id="cr"+cr_num+"comments";
                     couch.get(db,id).then(({data, headers, status}) => {
-                        if (startup_flag) {
-                            comm=data.comments;
-                            startup_flag=0;
-                        }
+                        comm=data.comments;
                         var comment={
                                     "date": today.getDay()+"/"+m+"/"+today.getFullYear(),
                                     "hour": today.getHours()+":"+today.getMinutes()+";",
