@@ -23,6 +23,5 @@ In particolare in couchdb devono essere presenti i seguenti database:
 
 ###### Scritto da:
 * Silvio Dei Giudici
-* Nunziato Crisafulli
 * Marco Morella
 * Mattia Nicolella
