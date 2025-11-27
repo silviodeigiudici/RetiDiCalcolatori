@@ -21,7 +21,3 @@ In particolare in couchdb devono essere presenti i seguenti database:
 5. [x] Informazioni sull' aula, galleria fotografica presa da flickr e sezioni commenti (NUNZIATO)
 6. [x] Documentazione REST (TUTTI)
 
-###### Scritto da:
-* Silvio Dei Giudici
-* Marco Morella
-* Mattia Nicolella
